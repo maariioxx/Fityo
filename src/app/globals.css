@@ -4,6 +4,6 @@
 
 @layer components {
   .form-input {
-    @apply border-2  focus:border-green-700 focus:ring-green-700 hover:border-green-700 rounded;
+    @apply border-2  focus:border-green-700 focus:ring-green-700 hover:border-green-700 rounded shadow;
   }
 }
