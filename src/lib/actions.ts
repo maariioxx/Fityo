@@ -274,6 +274,22 @@ export async function createCustomFood(data: TCreateFoodSchema) {
       user_id: user.userId,
     });
   if (insert.statusText === 'Created') {
+    revalidatePath('/home/nutrition');
+    return true;
+  }
+  return false;
+}
+
+export async function deleteCustomFood(foodId: number) {
+  const user = await getUser();
+  const remove = await supabase
+    .schema('nutrition')
+    .from('custom_foods')
+    .delete()
+    .eq('id', foodId)
+    .eq('user_id', user.userId);
+  if (remove.statusText === 'No Content') {
+    revalidatePath('/home/nutrition');
     return true;
   }
   return false;
