@@ -4,8 +4,10 @@ export default function SignupLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className=" flex flex-col items-center justify-center gap-8">
-      <h1 className={`${cairo.className} text-7xl font-bold`}>
+    <div className="min-h-screen flex flex-col items-center justify-center gap-16">
+      <h1
+        className={`${cairo.className} text-6xl md:text-7xl font-bold text-center`}
+      >
         Welcome to Fityo
       </h1>
       {children}
