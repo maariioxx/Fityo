@@ -1,6 +1,11 @@
 'use client';
 
-import { addFood, deleteFood, updateFood } from '@/lib/actions';
+import {
+  addFood,
+  deleteCustomFood,
+  deleteFood,
+  updateFood,
+} from '@/lib/actions';
 import { getDetailedFoodInfo } from '@/lib/utils';
 import { FetchedFood, FoodsRow } from '@/types/API/foodsrow';
 import { FoodNutrients } from '@/types/API/nutritionInstantEndpoint';
@@ -34,6 +39,7 @@ export default function FoodsRow({
   isCustomFood,
 }: FoodsRow) {
   const [openModal, setOpenModal] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [modalQuantity, setModalQuantity] = useState(quantity);
   async function handleAdd() {
     let data;
@@ -41,7 +47,7 @@ export default function FoodsRow({
       data = {
         name: food.name,
         date: date,
-        food_id: food.id,
+        food_id: Number(food.id),
         quantity: quantity,
         calories: calories,
         carbs: carbs,
@@ -54,7 +60,7 @@ export default function FoodsRow({
       data = {
         name: food!.knownAs,
         date: date,
-        food_id: food!.foodId,
+        food_id: Number(food!.foodId),
         quantity: quantity,
         calories: calories,
         carbs: carbs,
@@ -83,6 +89,18 @@ export default function FoodsRow({
       },
     });
     console.log(res);
+  }
+
+  async function handleCustomFoodDelete() {
+    if (isCustomFood) {
+      const res = await deleteCustomFood(food!.id);
+      if (res) {
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 5000);
+      }
+    }
   }
 
   async function handleDelete() {
@@ -254,14 +272,26 @@ export default function FoodsRow({
             </div>
           ) : (
             <>
-              <Button
-                color="success"
-                className="rounded-full ml-8"
-                size="xs"
-                onClick={handleAdd}
-              >
-                <MdAdd className="text-2xl" />
-              </Button>
+              <div className="flex mr-3 gap-2">
+                <Button
+                  color="success"
+                  className="rounded-full ml-8"
+                  size="xs"
+                  onClick={handleAdd}
+                >
+                  <MdAdd className="text-2xl" />
+                </Button>
+                {isCustomFood && (
+                  <Button
+                    color="failure"
+                    className="rounded-full"
+                    size="xs"
+                    onClick={handleCustomFoodDelete}
+                  >
+                    <MdDelete className="text-2xl" />
+                  </Button>
+                )}
+              </div>
               <div>
                 <label>
                   Qty:{' '}
@@ -283,6 +313,13 @@ export default function FoodsRow({
         </div>
       </div>
       <hr className="h-0.5 bg-gray-300" />
+      <div
+        className={`fixed top-[90vh] left-[45vw] w-48 pl-10 py-2 rounded-xl text-white bg-red-500 ${
+          showAlert ? 'scale-100 translate-y-0' : 'scale-0 -translate-y-8'
+        } transition-transform z-50`}
+      >
+        <p>Food deleted!</p>
+      </div>
     </div>
   );
 }
