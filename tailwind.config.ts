@@ -14,6 +14,16 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        move: {
+          '0%': { transform: 'translate(-50vw)' },
+          '50%': { transform: 'translate(0vw)' },
+          '100%': { transform: 'translate(50vw)' },
+        },
+      },
+      animation: {
+        move: 'move 50s infinite linear',
+      },
     },
   },
   plugins: [require('flowbite/plugin')],
