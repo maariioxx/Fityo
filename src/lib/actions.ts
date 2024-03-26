@@ -16,6 +16,7 @@ import {
   updateFoodSchema,
 } from '@/types/actions/updatefood';
 import { CustomFoodInput } from '@/types/foods/customFoods';
+import { TCreateFoodSchema, createFoodSchema } from '@/types/forms/createfood';
 
 export async function signUp(email: string, formData: TSignUpSchema) {
   const result = signUpSchema.safeParse(formData);
@@ -168,16 +169,19 @@ export async function setupDailyNutrition(
 export async function setupMeasures(formData: FormData) {
   const user = await getUser();
   const rawFormData = Object.fromEntries(formData);
-  const insert = await supabase.schema('fityo').from('measures').insert({
-    user_id: user!.userId,
-    height: rawFormData.height,
-    weight: rawFormData.weight,
-    neck: rawFormData.neck,
-    chest: rawFormData.chest,
-    arm: rawFormData.arm,
-    belly: rawFormData.belly,
-    leg: rawFormData.leg,
-  });
+  const insert = await supabase
+    .schema('fityo')
+    .from('measures')
+    .insert({
+      user_id: user!.userId as string,
+      height: rawFormData.height as string,
+      weight: rawFormData.weight as string,
+      neck: rawFormData.neck as string,
+      chest: rawFormData.chest as string,
+      arm: rawFormData.arm as string,
+      belly: rawFormData.belly as string,
+      leg: rawFormData.leg as string,
+    });
   revalidatePath('/home');
 }
 
@@ -189,7 +193,7 @@ export async function addFood({ data }: { data: TAddFoodSchema }) {
   const insert = await supabase.schema('nutrition').from('diets_foods').insert({
     name: result.data.name,
     date: formattedDate,
-    food_id: result.data.food_id,
+    food_id: result.data.food_id.toString(),
     quantity: result.data.quantity,
     calories: result.data.calories,
     carbs: result.data.carbs,
@@ -250,22 +254,27 @@ export async function updateFood({ data }: { data: TUpdateFoodSchema }) {
   return { message: update.error };
 }
 
-export async function createCustomFood(formData: FormData) {
-  const rawFormData = Object.fromEntries(formData);
+export async function createCustomFood(data: TCreateFoodSchema) {
+  const result = createFoodSchema.safeParse(data);
+  if (!result.success) return;
+  console.log(result);
   const user = await getUser();
   const insert = await supabase
     .schema('nutrition')
     .from('custom_foods')
     .insert({
-      name: rawFormData.name,
-      quantity: rawFormData.quantity,
-      calories: rawFormData.calories,
-      carbohydrates: rawFormData.carbohydrates,
-      sugar: rawFormData.sugar,
-      fats: rawFormData.fats,
-      saturated_fats: rawFormData.saturated_fats,
-      protein: rawFormData.protein,
+      name: result.data.name,
+      quantity: result.data.quantity,
+      calories: result.data.calories,
+      carbohydrates: result.data.carbohydrates,
+      sugar: result.data.sugar,
+      fats: result.data.fats,
+      saturated_fats: result.data.saturated_fats,
+      protein: result.data.protein,
       user_id: user.userId,
     });
-  return;
+  if (insert.statusText === 'Created') {
+    return true;
+  }
+  return false;
 }
