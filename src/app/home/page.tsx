@@ -3,7 +3,6 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/auth/auth';
 import { getUser } from '../../lib/utils';
 import { supabase } from 'supabase';
-import NutritionSetup from './components/nutrition/NutritionSetup';
 import NutritionSummary from './components/nutrition/NutritionSummary';
 import moment from 'moment';
 import HomeSetupButton from './components/HomeSetupButton';
@@ -24,8 +23,8 @@ export default async function Page() {
     .eq('user_id', user.userId);
   return (
     <div className="bg-slate-50 w-screen min-h-screen mt-20 rounded-t-[100px] grid lg:grid-cols-2 lg:grid-rows-[75%,25%]">
-      <div className="row-start-1 row-end-3 border-2 rounded-t-[100px] lg:rounded-tl-[100px] border-slate-400 grid grid-rows-[20%,80%] justify-center">
-        <h1 className="text-5xl pt-8">Nutrition</h1>
+      <div className="row-start-1 row-end-3 border-2 rounded-t-[100px] lg:rounded-tr-[0px] border-slate-400 grid grid-rows-[20%,80%] justify-center">
+        <h1 className="text-5xl pt-8 text-center">Nutrition</h1>
         {typeof userCalories.data !== 'undefined' &&
         userCalories.data!?.length > 0 ? (
           <NutritionSummary date={moment().format('DD/MM/YYYY').toString()} />
