@@ -49,7 +49,6 @@ export async function getEmail() {
 
 export async function getCalories() {
   const user = await getUser();
-  if (typeof user?.userId === 'undefined') redirect('/signup');
   const info = await supabase
     .schema('nutrition')
     .from('calories_info')
@@ -62,7 +61,6 @@ export async function getCalories() {
 
 export async function getCarbos() {
   const user = await getUser();
-  if (typeof user?.userId === 'undefined') redirect('/signup');
   const info = await supabase
     .schema('nutrition')
     .from('carbohidrates_info')
@@ -75,7 +73,6 @@ export async function getCarbos() {
 
 export async function getUsedMacros(date: string) {
   const user = await getUser();
-  if (typeof user?.userId === 'undefined') redirect('/signup');
   const formattedDate = formatDateToDB(date);
   let [usedCalories, usedCarbs, usedFats, usedProtein] = [0, 0, 0, 0];
   const day = await supabase
@@ -101,7 +98,6 @@ export async function getUsedMacros(date: string) {
 
 export async function getFats() {
   const user = await getUser();
-  if (typeof user?.userId === 'undefined') redirect('/signup');
   const info = await supabase
     .schema('nutrition')
     .from('fats_info')
@@ -114,7 +110,6 @@ export async function getFats() {
 
 export async function getProtein() {
   const user = await getUser();
-  if (typeof user?.userId === 'undefined') redirect('/signup');
   const info = await supabase
     .schema('nutrition')
     .from('protein_info')
@@ -151,7 +146,6 @@ export async function getUserFoods(date: string) {
   const formattedDate = moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD');
   console.log(formattedDate);
   const user = await getUser();
-  if (typeof user?.userId === 'undefined') redirect('/signup');
   const foods = await supabase
     .schema('nutrition')
     .from('diets_foods')
@@ -166,7 +160,6 @@ export async function getUserFoods(date: string) {
 export async function getUserCustomFoods(query: string) {
   if (query.length < 3) return [];
   const user = await getUser();
-  if (typeof user?.userId === 'undefined') redirect('/signup');
   const foods = await supabase
     .schema('nutrition')
     .from('custom_foods')
@@ -176,6 +169,66 @@ export async function getUserCustomFoods(query: string) {
   if (foods.error) console.log(foods.error);
   console.log(foods);
   return foods.data;
+}
+
+export async function getMeasures() {
+  const user = await getUser();
+  const measures = await supabase
+    .schema('fityo')
+    .from('measures')
+    .select('weight, neck, chest, arm, belly, leg, date')
+    .eq('user_id', user.userId)
+    .order('date');
+  let measuresData = measures.data!.map((measure) => {
+    return {
+      weight: +measure!.weight!,
+      neck: +measure!.neck!,
+      arm: +measure!.arm!,
+      chest: +measure!.chest!,
+      belly: +measure!.belly!,
+      leg: +measure!.leg!,
+      date: measure!.date!,
+    };
+  });
+  return measuresData;
+}
+
+export async function getMeasuresByInterval(
+  interval: string = moment().subtract(3, 'months').format('YYYY-MM-DD')
+) {
+  const user = await getUser();
+  const measures = await supabase
+    .schema('fityo')
+    .from('measures')
+    .select('weight, neck, chest, arm, belly, leg, date')
+    .eq('user_id', user.userId)
+    .gt('date', moment().subtract(3, 'months').format('YYYY-MM-DD'))
+    .order('date');
+  let measuresData = measures.data!.map((measure) => {
+    return {
+      weight: +measure!.weight!,
+      neck: +measure!.neck!,
+      arm: +measure!.arm!,
+      chest: +measure!.chest!,
+      belly: +measure!.belly!,
+      leg: +measure!.leg!,
+      date: measure!.date!,
+    };
+  });
+  return measuresData;
+}
+
+export async function getMeasuresByDate(
+  date: string = moment().format('YYYY-MM-DD')
+) {
+  const user = await getUser();
+  const measures = await supabase
+    .schema('fityo')
+    .from('measures')
+    .select('weight, neck, chest, arm, belly, leg')
+    .eq('user_id', user.userId)
+    .eq('date', date);
+  if (measures.data != null) return measures.data[0];
 }
 
 export function formatDateToDB(date: string, isBirthdate = false) {

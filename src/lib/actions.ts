@@ -6,7 +6,13 @@ import {
   totalNutritionSchema,
   dailyNutritionSchema,
 } from '@/types/forms/nutritionsetup';
-import { formatBirthdateToDb, formatDateToDB, getUser } from './utils';
+import {
+  formatBirthdateToDb,
+  formatDateToDB,
+  getMeasures,
+  getMeasuresByDate,
+  getUser,
+} from './utils';
 import { revalidatePath } from 'next/cache';
 import { TAddFoodSchema, addFoodSchema } from '@/types/actions/addfood';
 import moment from 'moment';
@@ -15,7 +21,6 @@ import {
   TUpdateFoodSchema,
   updateFoodSchema,
 } from '@/types/actions/updatefood';
-import { CustomFoodInput } from '@/types/foods/customFoods';
 import { TCreateFoodSchema, createFoodSchema } from '@/types/forms/createfood';
 
 export async function signUp(email: string, formData: TSignUpSchema) {
@@ -38,6 +43,8 @@ export async function signUp(email: string, formData: TSignUpSchema) {
   });
   return redirect('/home');
 }
+
+// NUTRITION SETUP
 
 export async function setupTotalNutrition(
   prevState: { message: string },
@@ -166,9 +173,12 @@ export async function setupDailyNutrition(
   return { message: 'Something went wrong' };
 }
 
+// MEASURES
+
 export async function setupMeasures(formData: FormData) {
   const user = await getUser();
   const rawFormData = Object.fromEntries(formData);
+  console.log(rawFormData);
   const insert = await supabase
     .schema('fityo')
     .from('measures')
@@ -181,9 +191,52 @@ export async function setupMeasures(formData: FormData) {
       arm: rawFormData.arm as string,
       belly: rawFormData.belly as string,
       leg: rawFormData.leg as string,
+      date: rawFormData.date as string,
     });
   revalidatePath('/home');
 }
+
+export async function addMeasures(formData: FormData) {
+  const user = await getUser();
+  const today = moment().format('YYYY-MM-DD');
+  const rawFormData = Object.fromEntries(formData);
+  const todayMeasures = await getMeasuresByDate(moment().format('YYYY-MM-DD'));
+  if (typeof todayMeasures === 'undefined') {
+    const insert = await supabase
+      .schema('fityo')
+      .from('measures')
+      .insert({
+        user_id: user!.userId as string,
+        weight: rawFormData.weight as string,
+        neck: rawFormData.neck as string,
+        chest: rawFormData.chest as string,
+        arm: rawFormData.arm as string,
+        belly: rawFormData.belly as string,
+        leg: rawFormData.leg as string,
+        date: today,
+      });
+  } else {
+    const update = await supabase
+      .schema('fityo')
+      .from('measures')
+      .update({
+        user_id: user!.userId as string,
+        weight: rawFormData.weight as string,
+        neck: rawFormData.neck as string,
+        chest: rawFormData.chest as string,
+        arm: rawFormData.arm as string,
+        belly: rawFormData.belly as string,
+        leg: rawFormData.leg as string,
+        date: today,
+      })
+      .eq('user_id', user.userId)
+      .eq('date', today);
+  }
+
+  revalidatePath('/home');
+}
+
+// USER'S DIARY FOODS
 
 export async function addFood({ data }: { data: TAddFoodSchema }) {
   const user = await getUser();
@@ -253,6 +306,8 @@ export async function updateFood({ data }: { data: TUpdateFoodSchema }) {
   }
   return { message: update.error };
 }
+
+// CUSTOM FOODS
 
 export async function createCustomFood(data: TCreateFoodSchema) {
   const result = createFoodSchema.safeParse(data);
