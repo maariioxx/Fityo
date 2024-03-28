@@ -1,4 +1,6 @@
-import { HTMLAttributes } from 'react';
+'use client';
+
+import { useTheme } from 'next-themes';
 
 type TCircle = {
   color: string;
@@ -41,13 +43,14 @@ export default function RadialProgressBar({
   takenCalories,
   className,
 }: TRadialProgressBar) {
+  const { theme } = useTheme();
   const percentage = (takenCalories / totalCalories) * 100;
   const remainingCalories = totalCalories - takenCalories;
   return (
     <div className={className}>
       <svg width={200} height={200}>
         <g transform="rotate(-90 100 100)">
-          <Circle color="#e2e8f0" />
+          <Circle color={theme === 'light' ? '#e2e8f0' : '#374151'} />
           <Circle color={color} percentage={percentage} />
         </g>
         <text
@@ -56,6 +59,7 @@ export default function RadialProgressBar({
           y="50%"
           dominantBaseline="center"
           textAnchor="middle"
+          fill={theme === 'light' ? '' : '#e2e8f0'}
         >
           {Math.abs(remainingCalories)}
         </text>
@@ -65,6 +69,7 @@ export default function RadialProgressBar({
           y="56%"
           dominantBaseline="center"
           textAnchor="middle"
+          fill={theme === 'light' ? '' : '#e2e8f0'}
         >
           {percentage > 100 ? 'extra' : 'remaining'}
         </text>

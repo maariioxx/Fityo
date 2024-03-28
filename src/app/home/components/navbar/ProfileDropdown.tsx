@@ -39,7 +39,7 @@ export default async function ProfileDropdown({
       <DropdownItem>
         <Link href="/profile">Profile</Link>
       </DropdownItem>
-      <DropdownItem className="hover:bg-red-300 focus:bg-red-300">
+      <DropdownItem className="hover:bg-red-300 focus:bg-red-300 dark:hover:bg-red-900 dark:focus:bg-red-900">
         <LogOut />
       </DropdownItem>
     </Dropdown>

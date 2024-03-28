@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-
 import './globals.css';
 import { poppins } from './fonts';
+import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'Fityo',
@@ -23,11 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${poppins.className} min-h-screen min-w-screen flex items-center justify-center`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

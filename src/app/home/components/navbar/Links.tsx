@@ -18,8 +18,9 @@ export default function Links() {
           <Link
             href={link.href}
             key={crypto.randomUUID()}
-            className={`hover:bg-slate-50 hover:text-green-700 p-2 rounded-lg transition-colors ${
-              pathname === link.href && 'bg-slate-50 text-green-700'
+            className={`hover:bg-slate-50 dark:hover:bg-zinc-950 hover:text-green-700 dark:hover:text-slate-50 p-2 rounded-lg transition-colors ${
+              pathname === link.href &&
+              'bg-slate-50 dark:bg-zinc-950 text-green-700 dark:text-slate-50'
             }`}
           >
             {link.name}

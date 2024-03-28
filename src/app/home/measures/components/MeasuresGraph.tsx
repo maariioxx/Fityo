@@ -1,6 +1,7 @@
 'use client';
 
 import { MeasuresData } from '@/types/API/measuresdata';
+import { useTheme } from 'next-themes';
 import {
   LineChart,
   Line,
@@ -12,7 +13,7 @@ import {
 } from 'recharts';
 
 export default function MeasuresGraph({ data }: { data: MeasuresData }) {
-  console.log(data);
+  const { theme } = useTheme();
 
   for (const measure of data) {
     for (let field in measure) {
@@ -72,7 +73,7 @@ export default function MeasuresGraph({ data }: { data: MeasuresData }) {
           connectNulls={true}
           dataKey="leg"
           unit="cm"
-          stroke="#0a0a0a"
+          stroke="#fc6f03"
         />
       </LineChart>
     </div>

@@ -55,7 +55,7 @@ export default function FoodsSearch() {
             name="searchType"
             checked={searchType === 'fityo'}
             onChange={() => setSearchType('fityo')}
-            className="appearance-none checked:bg-green-700"
+            className="appearance-none checked:bg-green-700 dark:checked:bg-green-700"
           />
         </label>
         <label htmlFor="">
@@ -65,7 +65,7 @@ export default function FoodsSearch() {
             name="searchType"
             checked={searchType === 'custom'}
             onChange={() => setSearchType('custom')}
-            className="appearance-none checked:bg-green-700"
+            className="appearance-none checked:bg-green-700 dark:checked:bg-green-700"
           />
         </label>
       </div>
