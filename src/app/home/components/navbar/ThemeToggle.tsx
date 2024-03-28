@@ -6,6 +6,7 @@ import { useTheme } from 'next-themes';
 
 export default function ThemeToggle() {
   const { setTheme, theme } = useTheme();
+  console.log(theme);
   return (
     <Button
       color="success"
@@ -14,9 +15,9 @@ export default function ThemeToggle() {
       className="rounded-full size-8"
     >
       {theme === 'dark' ? (
-        <MdOutlineDarkMode className="text-xl" />
-      ) : (
         <MdOutlineLightMode className="text-xl" />
+      ) : (
+        <MdOutlineDarkMode className="text-xl" />
       )}
     </Button>
   );
