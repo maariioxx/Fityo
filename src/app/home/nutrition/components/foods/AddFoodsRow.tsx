@@ -59,6 +59,7 @@ export default function AddFoodsRow({
       saturated_fats={saturated_fats}
       protein={protein}
       isUserFood={false}
+      isCustomFood={false}
       userFood={undefined}
       created_at={undefined}
     />
