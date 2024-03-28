@@ -1,5 +1,6 @@
 import { setupMeasures } from '@/lib/actions';
 import { Button } from 'flowbite-react';
+import moment from 'moment';
 import { MdInfo } from 'react-icons/md';
 
 export default function MeasuresSetup() {
@@ -9,6 +10,11 @@ export default function MeasuresSetup() {
         <MdInfo /> All fields are optional
       </p>
       <form action={setupMeasures} className="flex flex-col gap-4 items-center">
+        <input
+          type="hidden"
+          name="date"
+          value={moment().format('YYYY-MM-DD').toString()}
+        />
         <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1 relative">
           Height:
           <input
@@ -28,7 +34,7 @@ export default function MeasuresSetup() {
             className="form-input number-input"
           />
           <span className="absolute right-2 top-3 text-sm text-gray-400">
-            cm
+            kg
           </span>
         </label>
         <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1 relative">
