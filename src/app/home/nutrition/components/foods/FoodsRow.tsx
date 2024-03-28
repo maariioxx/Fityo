@@ -60,7 +60,7 @@ export default function FoodsRow({
       data = {
         name: food!.knownAs,
         date: date,
-        food_id: Number(food!.foodId),
+        food_id: food!.foodId,
         quantity: quantity,
         calories: calories,
         carbs: carbs,
