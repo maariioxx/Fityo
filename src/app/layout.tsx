@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${poppins.className} min-h-screen min-w-screen flex items-center justify-center`}
+        className={`${poppins.className} bg-slate-50 dark:bg-zinc-950 min-h-screen min-w-screen flex items-center justify-center`}
       >
         <Providers>{children}</Providers>
       </body>

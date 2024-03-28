@@ -9,7 +9,7 @@ export default async function Home() {
   const session = await auth();
   if (typeof session?.user !== 'undefined') redirect('/home');
   return (
-    <main className=" max-w-screen md:min-w-screen flex flex-col items-center justify-center gap-28">
+    <main className="bg-slate-50 dark:bg-zinc-950 max-w-screen md:min-w-screen flex flex-col items-center justify-center gap-28">
       <IconsCarousel />
       <div className="flex flex-col gap-5 items-center">
         <h1

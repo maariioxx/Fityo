@@ -22,7 +22,7 @@ export default function Page() {
         </Button>
         <Button
           size="xl"
-          className="w-64 bg-zinc-900 enabled:hover:bg-zinc-950"
+          className="w-64 bg-zinc-900 dark:bg-black dark:enabled:hover:bg-zinc-900 enabled:hover:bg-zinc-950"
           onClick={() => signIn('github', { callbackUrl: '/signup/2' })}
         >
           <FaGithub className="mr-3 mt-[0.05rem]" />
@@ -31,7 +31,7 @@ export default function Page() {
       </div>
       <div className="inline-flex items-center justify-center w-full">
         <hr className="w-48 h-px my-8 bg-green-700 border-0 dark:bg-gray-700" />
-        <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2">
+        <span className="absolute px-3 font-medium text-gray-900 dark:text-white -translate-x-1/2 bg-white dark:bg-zinc-950 left-1/2">
           or
         </span>
       </div>
@@ -42,7 +42,7 @@ export default function Page() {
         className="flex flex-col items-center gap-5"
       >
         <label className="relative grid grid-rows-2">
-          <span className="absolute left-2 bottom-[4.9rem] px-2 bg-white">
+          <span className="absolute left-2 bottom-[4.9rem] px-2 bg-white dark:bg-zinc-950 dark:bg-transparent">
             Email:
           </span>
           <input
@@ -51,7 +51,7 @@ export default function Page() {
             name="email"
             id="email"
             onChange={(e) => setEmailInput(e.target.value)}
-            className="form-input w-64"
+            className="form-input w-64 dark:bg-zinc-950"
           />
         </label>
         <Button type="submit" color="success" size="xl">
