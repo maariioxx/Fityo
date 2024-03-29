@@ -59,7 +59,7 @@ export default function RadialProgressBar({
           y="50%"
           dominantBaseline="center"
           textAnchor="middle"
-          fill={theme === 'light' ? '' : '#e2e8f0'}
+          fill={color}
         >
           {Math.abs(remainingCalories)}
         </text>
@@ -69,7 +69,7 @@ export default function RadialProgressBar({
           y="56%"
           dominantBaseline="center"
           textAnchor="middle"
-          fill={theme === 'light' ? '' : '#e2e8f0'}
+          fill={color}
         >
           {percentage > 100 ? 'extra' : 'remaining'}
         </text>

@@ -12,7 +12,7 @@ const LINKS = [
 export default function Links() {
   const pathname = usePathname();
   return (
-    <div className="space-x-20 text-white">
+    <div className="text-white flex flex-col items-center sm:flex-row gap-16">
       {LINKS.map((link) => {
         return (
           <Link

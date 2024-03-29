@@ -16,7 +16,10 @@ export default function MeasuresSummary({
 }) {
   const [showInputs, setShowInputs] = useState(SHOW_INPUT);
   return (
-    <form action={addMeasures} className="flex flex-col gap-4 max-w-sm">
+    <form
+      action={addMeasures}
+      className="flex flex-col gap-4 w-4/5 lg:max-w-sm"
+    >
       {FORM_FIELDS.map((field, index) => {
         return (
           <label key={index} className="relative grid grid-cols-2 gap-4">
@@ -66,7 +69,7 @@ export default function MeasuresSummary({
               } transition-transform`}
             />
             <span
-              className={`absolute top-3 right-24 text-sm text-gray-400 ${
+              className={`absolute top-3 right-14 text-sm text-gray-400 ${
                 showInputs[index]
                   ? 'scale-100 translate-x-0'
                   : 'scale-0 -translate-x-8'

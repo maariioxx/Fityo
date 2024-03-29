@@ -38,7 +38,7 @@ export default async function FityoFoodsFetch({
   }
 
   return (
-    <div>
+    <div className="">
       {data.parsed.length > 0 ? (
         data.parsed.map(({ food }) => {
           return (

@@ -111,12 +111,12 @@ export default function FoodsRow({
   }
   return (
     <div className="space-y-5">
-      <div className="flex items-center w-full justify-between gap-16 mt-4">
-        <div className="flex flex-col gap-4">
+      <div className="flex flex-col lg:flex-row items-center lg:w-full justify-between lg:gap-16 mt-4">
+        <div className="flex flex-col gap-4 items-center">
           <h1 className="text-3xl">
             <span onClick={() => setOpenModal(true)} className="cursor-pointer">
               {isUserFood ? (
-                <span>
+                <span className="text-sm lg:text-md">
                   {userFood.name}
                   <span className="text-sm"> | {userFood.quantity}g</span>
                 </span>
@@ -219,7 +219,7 @@ export default function FoodsRow({
               </form>
             </ModalFooter>
           </Modal>
-          <div className="-mt-4 flex gap-4">
+          <div className="-mt-4 flex flex-col lg:flex-row lg:gap-4">
             <Tooltip
               content="Calories per 100g"
               placement="bottom"

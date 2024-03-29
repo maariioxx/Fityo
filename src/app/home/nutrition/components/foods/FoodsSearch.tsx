@@ -41,7 +41,7 @@ export default function FoodsSearch() {
       <div className="relative">
         <input
           type="text"
-          className="form-input"
+          className="form-input w-48"
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get('query')?.toString()}
         />
@@ -58,14 +58,14 @@ export default function FoodsSearch() {
             className="appearance-none checked:bg-green-700 dark:checked:bg-green-700"
           />
         </label>
-        <label htmlFor="">
+        <label htmlFor="" className="w-32">
           Custom foods:{' '}
           <input
             type="radio"
             name="searchType"
             checked={searchType === 'custom'}
             onChange={() => setSearchType('custom')}
-            className="appearance-none checked:bg-green-700 dark:checked:bg-green-700"
+            className="appearance-none checked:bg-green-700 dark:checked:bg-green-700 w-32"
           />
         </label>
       </div>

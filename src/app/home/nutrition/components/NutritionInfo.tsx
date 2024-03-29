@@ -16,7 +16,7 @@ export default function NutritionInfo({
       <PaginationArrows date={date} />
       <div className="space-y-14">
         <NutritionSummary date={date} />
-        <div>
+        <div className="w-[99%] lg:w-[700px] flex flex-col items-center">
           <FoodsInfo date={date} query={query} searchType={searchType} />
         </div>
       </div>
