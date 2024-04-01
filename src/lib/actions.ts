@@ -7,9 +7,9 @@ import {
   dailyNutritionSchema,
 } from '@/types/forms/nutritionsetup';
 import {
+  checkIfUsernameExists,
   formatBirthdateToDb,
   formatDateToDB,
-  getMeasures,
   getMeasuresByDate,
   getUser,
 } from './utils';
@@ -26,6 +26,9 @@ import { TCreateFoodSchema, createFoodSchema } from '@/types/forms/createfood';
 export async function signUp(email: string, formData: TSignUpSchema) {
   const result = signUpSchema.safeParse(formData);
   if (!result.success) return { status: 400, message: result.error };
+  const usernameValidation = await checkIfUsernameExists(result.data.username);
+  if (!usernameValidation)
+    return { status: 400, message: 'Username already exists' };
   const authUser = await supabase
     .schema('next_auth')
     .from('users')
