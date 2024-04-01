@@ -4,14 +4,14 @@ import { supabase } from '../../supabase';
 import moment from 'moment';
 import { FoodNutrients } from '@/types/API/nutritionInstantEndpoint';
 
-export async function getUser() {
+export async function getUser(doRedirect = true) {
   const sessionUser = await auth();
-  if (sessionUser == null) redirect('/signup');
+  if (doRedirect && sessionUser == null) redirect('/signup');
   const authUser = await supabase
     .schema('next_auth')
     .from('users')
     .select()
-    .eq('email', sessionUser.user!.email as string);
+    .eq('email', sessionUser!.user!.email as string);
   const authUserData = authUser.data![0];
   const user = await supabase
     .schema('fityo')
@@ -27,12 +27,13 @@ export async function getUser() {
       birthdate: userData.birthdate,
       genre: userData.genre,
     };
-  return redirect('/signup');
+  if (doRedirect) return redirect('/signup');
+  return;
 }
 
 export async function getEmail() {
   const sessionUser = await auth();
-  const user = await getUser();
+  const user = await getUser(false);
   if (sessionUser == null) redirect('/signup');
   const email = await supabase
     .schema('next_auth')
@@ -47,6 +48,21 @@ export async function getEmail() {
     redirect('/home');
 }
 
+export async function checkIfUsernameExists(val: string) {
+  const fetch = await supabase
+    .schema('fityo')
+    .from('users')
+    .select()
+    .eq('username', val);
+  if (typeof fetch.data !== 'undefined' && fetch.data!.length > 0) return false;
+  return true;
+}
+
+export async function getUsernames() {
+  const fetch = await supabase.schema('fityo').from('users').select('username');
+  return fetch.data;
+}
+
 export async function getCalories() {
   const user = await getUser();
   const info = await supabase
@@ -55,7 +71,7 @@ export async function getCalories() {
     .select(
       'total_calories, monday_calories, tuesday_calories, wednesday_calories, thursday_calories, friday_calories, saturday_calories, sunday_calories'
     )
-    .eq('user_id', user?.userId);
+    .eq('user_id', user!.userId);
   return info.data![0];
 }
 
@@ -67,7 +83,7 @@ export async function getCarbos() {
     .select(
       'total_carbohidrates, monday_carbohidrates, tuesday_carbohidrates, wednesday_carbohidrates, thursday_carbohidrates, friday_carbohidrates, saturday_carbohidrates, sunday_carbohidrates'
     )
-    .eq('user_id', user?.userId);
+    .eq('user_id', user!.userId);
   return info.data![0];
 }
 
@@ -80,7 +96,7 @@ export async function getUsedMacros(date: string) {
     .from('diets_foods')
     .select()
     .eq('date', formattedDate)
-    .eq('user_id', user?.userId);
+    .eq('user_id', user!.userId);
   if (
     typeof day.data !== 'undefined' &&
     day.data != null &&
@@ -104,7 +120,7 @@ export async function getFats() {
     .select(
       'total_fats, monday_fats, tuesday_fats, wednesday_fats, thursday_fats, friday_fats, saturday_fats, sunday_fats'
     )
-    .eq('user_id', user?.userId);
+    .eq('user_id', user!.userId);
   return info.data![0];
 }
 
@@ -116,7 +132,7 @@ export async function getProtein() {
     .select(
       'total_protein, monday_protein, tuesday_protein, wednesday_protein, thursday_protein, friday_protein, saturday_protein, sunday_protein'
     )
-    .eq('user_id', user?.userId);
+    .eq('user_id', user!.userId);
   return info.data![0];
 }
 
@@ -165,7 +181,7 @@ export async function getUserCustomFoods(query: string) {
     .from('custom_foods')
     .select()
     .like('name', `%${query}%`)
-    .eq('user_id', user.userId);
+    .eq('user_id', user!.userId);
   if (foods.error) console.log(foods.error);
   console.log(foods);
   return foods.data;
@@ -177,7 +193,7 @@ export async function getMeasures() {
     .schema('fityo')
     .from('measures')
     .select('weight, neck, chest, arm, belly, leg, date')
-    .eq('user_id', user.userId)
+    .eq('user_id', user!.userId)
     .order('date');
   let measuresData = measures.data!.map((measure) => {
     return {
@@ -201,7 +217,7 @@ export async function getMeasuresByInterval(
     .schema('fityo')
     .from('measures')
     .select('weight, neck, chest, arm, belly, leg, date')
-    .eq('user_id', user.userId)
+    .eq('user_id', user!.userId)
     .gt('date', moment().subtract(3, 'months').format('YYYY-MM-DD'))
     .order('date');
   let measuresData = measures.data!.map((measure) => {
@@ -226,7 +242,7 @@ export async function getMeasuresByDate(
     .schema('fityo')
     .from('measures')
     .select('weight, neck, chest, arm, belly, leg')
-    .eq('user_id', user.userId)
+    .eq('user_id', user!.userId)
     .eq('date', date);
   if (measures.data != null) return measures.data[0];
 }
