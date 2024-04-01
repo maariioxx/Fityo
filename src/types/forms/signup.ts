@@ -14,6 +14,7 @@ export const signUpSchema = z
   })
   .refine((data) => moment().subtract(18, 'years').toDate() > data.birthdate, {
     message: 'Only 18 years old or more',
+    path: ['birthdate'],
   });
 
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
