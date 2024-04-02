@@ -27,7 +27,7 @@ export default function Form({
     handleSubmit,
     formState: { errors },
   } = useForm<TSignUpSchema>({
-    resolver: zodResolver(signUpSchema, { async: true }, { mode: 'async' }),
+    resolver: zodResolver(signUpSchema),
     mode: 'onBlur',
   });
   const [serverError, setServerError] = useState<string | ZodError>();
@@ -46,16 +46,11 @@ export default function Form({
 
   const handleFormSubmit = async (data: TSignUpSchema) => {
     const session = await getSession();
-    console.log(session);
     const signUpWithEmail = signUp.bind(null, session?.user?.email!);
     const res = await signUpWithEmail(data);
     if (typeof res !== 'undefined' && res.status !== 400)
       return setServerError(res.message);
   };
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   return (
     <form
@@ -65,13 +60,17 @@ export default function Form({
     >
       <label className="relative grid grid-rows-2">
         <Tooltip content="A username can only contain characters, _ and -">
-          <span className="absolute left-2 bottom-[4.9rem] px-2 bg-white">
+          <span className="absolute left-2 bottom-[4.9rem] px-2 bg-white dark:bg-zinc-950">
             Username:
           </span>
           <input
             {...register('username')}
             type="text"
-            className="form-input pr-6"
+            className={`form-input pr-6 dark:bg-zinc-950 ${
+              errors.username || usernameDuplicated
+                ? 'border-2 !border-red-500 focus:!border-red-500 focus:!ring-red-500'
+                : ''
+            }`}
           />
         </Tooltip>
         {errors.username && (
@@ -82,7 +81,7 @@ export default function Form({
         )}
       </label>
       <label className="relative grid grid-rows-2">
-        <span className="absolute left-2 bottom-[4.9rem] px-2 bg-white">
+        <span className="absolute left-2 bottom-[4.9rem] px-2 bg-white dark:bg-zinc-950">
           Birthdate:
         </span>
         <Controller
@@ -97,7 +96,11 @@ export default function Form({
               minDate={moment().subtract(150, 'years').toDate()}
               maxDate={moment().subtract(18, 'years').toDate()}
               icon={<MdCalendarMonth className="absolute top-[0.30rem] z-10" />}
-              className="relative form-input"
+              className={`relative form-input dark:bg-zinc-950 ${
+                errors.birthdate || usernameDuplicated
+                  ? 'border-2 !border-red-500 focus:!border-red-500 focus:!ring-red-500'
+                  : ''
+              }`}
             />
           )}
         />
@@ -106,14 +109,18 @@ export default function Form({
         )}
       </label>
       <label className="relative grid grid-rows-2">
-        <span className="absolute left-2 bottom-[4.9rem] px-2 bg-white">
+        <span className="absolute left-2 bottom-[4.9rem] px-2 bg-white dark:bg-zinc-950">
           Choose your genre:
         </span>
         <select
           {...register('genre')}
           name="genre"
           id="genre"
-          className="form-input"
+          className={`form-input dark:bg-zinc-950 ${
+            errors.genre || usernameDuplicated
+              ? 'border-2 !border-red-500 focus:!border-red-500 focus:!ring-red-500'
+              : ''
+          }`}
         >
           <option value="M">M</option>
           <option value="F">F</option>

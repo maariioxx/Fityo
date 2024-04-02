@@ -8,7 +8,8 @@ export default async function Page() {
   const usernames = await getUsernames();
   console.log(session);
   if (!session) redirect('/signup');
-  await getEmail();
+  const user = await getUser(false);
+  if (user) redirect('/home');
   return (
     <div>
       <Form usernames={usernames!} />
