@@ -22,13 +22,22 @@ export default function NavbarContainer({
   }, []);
 
   return (
-    <div className="fixed top-0 w-screen bg-green-700 px-6 py-3 flex flex-col gap-8 sm:flex-row justify-around items-center">
-      <span
-        onClick={() => setToggleNavbar(!toggleNavbar)}
-        className="absolute left-8 top-7 cursor-pointer sm:hidden text-2xl z-20"
-      >
-        {toggleNavbar ? <MdClose /> : <MdMenu />}
-      </span>
+    <div className="fixed z-10 top-0 w-screen bg-green-700 px-6 py-3 flex flex-col gap-8 sm:flex-row justify-around items-center">
+      <div className="flex items-center justify-between w-full">
+        <span
+          onClick={() => setToggleNavbar(!toggleNavbar)}
+          className="sticky flex-shrink-0 top-7 cursor-pointer sm:hidden text-2xl z-20"
+        >
+          {toggleNavbar ? <MdClose /> : <MdMenu />}
+        </span>
+        <Image
+          src="/assets/favicon-home.svg"
+          alt="Fityo logo"
+          width={48}
+          height={48}
+        />
+        <div className="h-6 w-6"></div>
+      </div>
       <div
         className={`sm:fixed ${
           toggleNavbar || windowWidth > 640 ? 'fixed' : 'hidden'

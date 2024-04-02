@@ -38,7 +38,7 @@ export default async function FityoFoodsFetch({
   }
 
   return (
-    <div className="">
+    <div className="flex flex-col items-center">
       {data.parsed.length > 0 ? (
         data.parsed.map(({ food }) => {
           return (
@@ -51,7 +51,7 @@ export default async function FityoFoodsFetch({
           );
         })
       ) : (
-        <h1>There&apos;s nothing!</h1>
+        <h1 className="text-2xl">There&apos;s nothing!</h1>
       )}
     </div>
   );

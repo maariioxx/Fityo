@@ -110,13 +110,13 @@ export default function FoodsRow({
     });
   }
   return (
-    <div className="space-y-5">
-      <div className="flex flex-col lg:flex-row items-center lg:w-full justify-between lg:gap-16 mt-4">
-        <div className="flex flex-col gap-4 items-center">
+    <div className="space-y-8">
+      <div className="flex flex-col lg:flex-row items-center lg:w-full justify-between gap-7 lg:gap-48 mt-4">
+        <div className="flex flex-col gap-2 items-center lg:items-start">
           <h1 className="text-3xl">
             <span onClick={() => setOpenModal(true)} className="cursor-pointer">
               {isUserFood ? (
-                <span className="text-sm lg:text-md">
+                <span className="text-2xl lg:text-2xl">
                   {userFood.name}
                   <span className="text-sm"> | {userFood.quantity}g</span>
                 </span>
@@ -219,7 +219,7 @@ export default function FoodsRow({
               </form>
             </ModalFooter>
           </Modal>
-          <div className="-mt-4 flex flex-col lg:flex-row lg:gap-4">
+          <div className="sm:pl-6 lg:pl-0 -mt-4 grid grid-cols-2 lg:grid-cols-4 justify-center gap-4 lg:gap-24">
             <Tooltip
               content="Calories per 100g"
               placement="bottom"
@@ -252,7 +252,7 @@ export default function FoodsRow({
         </div>
         <div className="relative w-full flex flex-col items-center pt-2 gap-2">
           {isUserFood ? (
-            <div className="space-y-4">
+            <div className="flex lg:flex-col gap-4">
               <Button
                 color="blue"
                 size="xs"
@@ -271,7 +271,7 @@ export default function FoodsRow({
               </Button>
             </div>
           ) : (
-            <>
+            <div className="flex flex-col-reverse lg:flex-col gap-2">
               <div className="flex mr-3 gap-2">
                 <Button
                   color="success"
@@ -306,9 +306,11 @@ export default function FoodsRow({
                     className="form-input number-input max-w-24"
                   />
                 </label>
-                <span className="absolute right-3 bottom-3.5">g</span>
+                <span className="absolute right-14 lg:right-8 top-4 lg:top-auto lg:bottom-3.5">
+                  g
+                </span>
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

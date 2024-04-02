@@ -11,22 +11,9 @@ export default async function ProfileDropdown({
   session: Session;
 }) {
   const user = await getUser();
-  console.log(user);
   return (
     <Dropdown
-      label={
-        typeof session.user?.image !== 'undefined' ? (
-          <Image
-            src={session?.user?.image!}
-            alt="User logo"
-            width={48}
-            height={48}
-            className="rounded-xl"
-          />
-        ) : (
-          <h2 className="text-xl text-white">{user?.username}</h2>
-        )
-      }
+      label={<h2 className="text-xl text-white">{user?.username}</h2>}
       inline
       arrowIcon={false}
       dismissOnClick={false}
@@ -36,9 +23,9 @@ export default async function ProfileDropdown({
         <span>{session?.user?.name}</span>
         <span>{session?.user?.email}</span>
       </DropdownHeader>
-      <DropdownItem>
-        <Link href="/profile">Profile</Link>
-      </DropdownItem>
+      <Link href="/home/editprofile">
+        <DropdownItem>Profile</DropdownItem>
+      </Link>
       <DropdownItem className="hover:bg-red-300 focus:bg-red-300 dark:hover:bg-red-900 dark:focus:bg-red-900">
         <LogOut />
       </DropdownItem>

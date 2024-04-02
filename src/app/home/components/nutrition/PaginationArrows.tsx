@@ -35,6 +35,7 @@ export default function PaginationArrows({ date }: { date: string }) {
         size="xs"
         color="success"
         onClick={() => handleDayChange('before')}
+        className="z-0"
       >
         {<MdKeyboardArrowLeft className="text-2xl" />}
       </Button>

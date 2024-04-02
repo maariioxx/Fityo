@@ -34,14 +34,12 @@ export default function FoodsSearch() {
     replace(`${pathname}?${params.toString()}`);
   }, [searchType]);
 
-  useEffect(() => console.log(searchParams.get('searchType')?.toString()), []);
-
   return (
-    <div className="flex flex-col items-center gap-5">
+    <div className="flex flex-col items-center gap-2 lg:gap-5">
       <div className="relative">
         <input
           type="text"
-          className="form-input w-48"
+          className="form-input w-48 lg:w-72"
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get('query')?.toString()}
         />
@@ -58,14 +56,14 @@ export default function FoodsSearch() {
             className="appearance-none checked:bg-green-700 dark:checked:bg-green-700"
           />
         </label>
-        <label htmlFor="" className="w-32">
+        <label htmlFor="">
           Custom foods:{' '}
           <input
             type="radio"
             name="searchType"
             checked={searchType === 'custom'}
             onChange={() => setSearchType('custom')}
-            className="appearance-none checked:bg-green-700 dark:checked:bg-green-700 w-32"
+            className="appearance-none checked:bg-green-700 dark:checked:bg-green-700"
           />
         </label>
       </div>
