@@ -45,7 +45,8 @@ export async function getEmail() {
     email.data?.length > 0 &&
     user != null
   )
-    redirect('/home');
+    return email.data[0];
+  redirect('/home');
 }
 
 export async function checkIfUsernameExists(val: string) {
@@ -54,6 +55,16 @@ export async function checkIfUsernameExists(val: string) {
     .from('users')
     .select()
     .eq('username', val);
+  if (typeof fetch.data !== 'undefined' && fetch.data!.length > 0) return false;
+  return true;
+}
+
+export async function checkIfEmailExists(val: string) {
+  const fetch = await supabase
+    .schema('next_auth')
+    .from('users')
+    .select()
+    .eq('email', val);
   if (typeof fetch.data !== 'undefined' && fetch.data!.length > 0) return false;
   return true;
 }
