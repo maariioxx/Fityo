@@ -7,6 +7,7 @@ import {
   dailyNutritionSchema,
 } from '@/types/forms/nutritionsetup';
 import {
+  checkIfEmailExists,
   checkIfUsernameExists,
   formatBirthdateToDb,
   formatDateToDB,
@@ -22,6 +23,9 @@ import {
   updateFoodSchema,
 } from '@/types/actions/updatefood';
 import { TCreateFoodSchema, createFoodSchema } from '@/types/forms/createfood';
+import { TEditProfile, editProfileSchema } from '@/types/forms/editprofile';
+import { User } from '@/app/home/editprofile/components/Form';
+import { Session } from 'next-auth';
 
 export async function signUp(email: string, formData: TSignUpSchema) {
   const result = signUpSchema.safeParse(formData);
@@ -45,6 +49,41 @@ export async function signUp(email: string, formData: TSignUpSchema) {
     genre: result.data.genre,
   });
   return redirect('/home');
+}
+
+export async function editProfile(
+  user: User,
+  session: Session,
+  data: TEditProfile
+) {
+  const result = editProfileSchema.safeParse(data);
+  if (!result.success) return { status: 400, message: result.error };
+  const usernameValidation = await checkIfUsernameExists(result.data.username);
+  if (!usernameValidation && result.data.username !== user?.username)
+    return { status: 400, message: 'Username already exists' };
+  const emailValidation = await checkIfEmailExists(result.data.email);
+  if (!emailValidation && result.data.email !== session?.user?.email)
+    return { status: 400, message: 'Email already exists' };
+  console.log(result.data);
+  const sessionUpdate = await supabase
+    .schema('next_auth')
+    .from('users')
+    .update({
+      email: result.data.email,
+      name: result.data.name,
+    })
+    .eq('email', session.user!.email!);
+  const userUpdate = await supabase
+    .schema('fityo')
+    .from('users')
+    .update({
+      username: result.data.username,
+    })
+    .eq('id', user.userId);
+  if (sessionUpdate.status === 204 && userUpdate.status === 204) {
+    revalidatePath('/home');
+    return redirect('/home');
+  }
 }
 
 // NUTRITION SETUP
@@ -232,7 +271,7 @@ export async function addMeasures(formData: FormData) {
         leg: rawFormData.leg as string,
         date: today,
       })
-      .eq('user_id', user.userId)
+      .eq('user_id', user!.userId)
       .eq('date', today);
   }
 
@@ -302,7 +341,7 @@ export async function updateFood({ data }: { data: TUpdateFoodSchema }) {
     })
     .eq('date', formattedDate)
     .eq('created_at', result.data.created_at)
-    .eq('user_id', user?.userId);
+    .eq('user_id', user!.userId);
   if (update.status === 204) {
     revalidatePath('/home');
     return { message: 'Success' };
@@ -329,7 +368,7 @@ export async function createCustomFood(data: TCreateFoodSchema) {
       fats: result.data.fats,
       saturated_fats: result.data.saturated_fats,
       protein: result.data.protein,
-      user_id: user.userId,
+      user_id: user!.userId,
     });
   if (insert.statusText === 'Created') {
     revalidatePath('/home/nutrition');
@@ -345,7 +384,7 @@ export async function deleteCustomFood(foodId: number) {
     .from('custom_foods')
     .delete()
     .eq('id', foodId)
-    .eq('user_id', user.userId);
+    .eq('user_id', user!.userId);
   if (remove.statusText === 'No Content') {
     revalidatePath('/home/nutrition');
     return true;
