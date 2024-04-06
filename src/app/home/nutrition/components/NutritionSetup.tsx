@@ -4,8 +4,11 @@ import { ToggleSwitch, Tooltip } from 'flowbite-react';
 import { useState } from 'react';
 import DailyForm from './DailyForm';
 import TotalForm from './TotalForm';
-
-export default function NutritionSetup() {
+export default function NutritionSetup({
+  update = false,
+}: {
+  update: boolean;
+}) {
   const [dailyNutrition, setDailyNutrition] = useState(false);
   return (
     <div className="py-20 flex flex-col items-center gap-10">
@@ -19,7 +22,11 @@ export default function NutritionSetup() {
           />
         </Tooltip>
       </div>
-      {dailyNutrition ? <DailyForm /> : <TotalForm />}
+      {dailyNutrition ? (
+        <DailyForm update={update} />
+      ) : (
+        <TotalForm update={update} />
+      )}
     </div>
   );
 }

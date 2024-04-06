@@ -25,7 +25,6 @@ export default function FoodsSearch() {
   }, 200);
 
   useEffect(() => {
-    console.log(searchType);
     if (searchType === 'custom') {
       params.set('searchType', 'custom');
     } else {

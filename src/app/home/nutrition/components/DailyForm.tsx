@@ -1,22 +1,30 @@
 'use client';
 import { Button, Tooltip, Checkbox } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { setupDailyNutrition } from '@/lib/actions';
+import { editDailyNutrition, setupDailyNutrition } from '@/lib/actions';
 import { FORM_FIELDS, FORM_TOTAL, DAYS_FROM_TOTAL } from '../utils/formFields';
 import { useFormState } from 'react-dom';
 
-export default function Form() {
+export default function Form({ update }: { update: boolean }) {
   const [total, setTotal] = useState(FORM_TOTAL);
-  const [state, formAction] = useFormState(setupDailyNutrition, {
-    message: '',
-  });
+  const [state, formAction] = useFormState(
+    update ? editDailyNutrition : setupDailyNutrition,
+    {
+      message: '',
+    }
+  );
 
-  const onChangeTotal = (name: string, value: string) => {
-    setTotal((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  function onChangeTotal(
+    name: 'totalCalories' | 'totalCarbohidrates' | 'totalFats' | 'totalProtein',
+    value: string
+  ) {
+    if (total[name] !== value) {
+      setTotal((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  }
 
   const [daysUseTotal, setDaysUseTotal] = useState(DAYS_FROM_TOTAL);
 

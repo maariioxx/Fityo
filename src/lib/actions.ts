@@ -24,7 +24,7 @@ import {
 } from '@/types/actions/updatefood';
 import { TCreateFoodSchema, createFoodSchema } from '@/types/forms/createfood';
 import { TEditProfile, editProfileSchema } from '@/types/forms/editprofile';
-import { User } from '@/app/home/editprofile/components/Form';
+import { User } from '@/app/home/settings/components/Form';
 import { Session } from 'next-auth';
 
 export async function signUp(email: string, formData: TSignUpSchema) {
@@ -143,6 +143,91 @@ export async function setupTotalNutrition(
   return { message: 'Something went wrong' };
 }
 
+export async function editTotalNutrition(
+  prevState: { message: string },
+  formData: FormData
+) {
+  console.log('eee');
+  const result = totalNutritionSchema.safeParse({
+    total_calories: formData.get('total_calories'),
+    total_carbohidrates: formData.get('total_carbohidrates'),
+    total_fats: formData.get('total_fats'),
+    total_protein: formData.get('total_protein'),
+  });
+  if (!result.success) {
+    return { message: 'Something went wrong' };
+  }
+  const user = await getUser();
+  if (!user) return { message: 'User does not exist' };
+  const caloriesInsert = await supabase
+    .schema('nutrition')
+    .from('calories_info')
+    .update({
+      total_calories: result.data.total_calories,
+      monday_calories: null,
+      tuesday_calories: null,
+      wednesday_calories: null,
+      thursday_calories: null,
+      friday_calories: null,
+      saturday_calories: null,
+      sunday_calories: null,
+    })
+    .eq('user_id', user.userId);
+  const carbosInsert = await supabase
+    .schema('nutrition')
+    .from('carbohidrates_info')
+    .update({
+      total_carbohidrates: result.data.total_carbohidrates,
+      monday_carbohidrates: null,
+      tuesday_carbohidrates: null,
+      wednesday_carbohidrates: null,
+      thursday_carbohidrates: null,
+      friday_carbohidrates: null,
+      saturday_carbohidrates: null,
+      sunday_carbohidrates: null,
+    })
+    .eq('user_id', user.userId);
+  const fatsInsert = await supabase
+    .schema('nutrition')
+    .from('fats_info')
+    .update({
+      total_fats: result.data.total_fats,
+      monday_fats: null,
+      tuesday_fats: null,
+      wednesday_fats: null,
+      thursday_fats: null,
+      friday_fats: null,
+      saturday_fats: null,
+      sunday_fats: null,
+    })
+    .eq('user_id', user.userId);
+  const proteinInsert = await supabase
+    .schema('nutrition')
+    .from('protein_info')
+    .update({
+      total_protein: result.data.total_protein,
+      monday_protein: null,
+      tuesday_protein: null,
+      wednesday_protein: null,
+      thursday_protein: null,
+      friday_protein: null,
+      saturday_protein: null,
+      sunday_protein: null,
+    })
+    .eq('user_id', user.userId);
+  console.log(caloriesInsert, carbosInsert, fatsInsert, proteinInsert);
+  if (
+    caloriesInsert.status === 204 &&
+    carbosInsert.status === 204 &&
+    fatsInsert.status === 204 &&
+    proteinInsert.status === 204
+  ) {
+    revalidatePath('/home');
+    redirect('/home/nutrition');
+  }
+  return { message: 'Something went wrong' };
+}
+
 export async function setupDailyNutrition(
   prevState: { message: string },
   formData: FormData
@@ -154,7 +239,7 @@ export async function setupDailyNutrition(
   const caloriesInsert = await supabase
     .schema('nutrition')
     .from('calories_info')
-    .insert({
+    .upsert({
       monday_calories: result.data.monday_calories as number,
       tuesday_calories: result.data.tuesday_calories as number,
       wednesday_calories: result.data.wednesday_calories as number,
@@ -163,11 +248,12 @@ export async function setupDailyNutrition(
       saturday_calories: result.data.saturday_calories as number,
       sunday_calories: result.data.sunday_calories as number,
       user_id: user?.userId as string,
-    });
+    })
+    .eq('user_id', user!.userId);
   const carbosInsert = await supabase
     .schema('nutrition')
     .from('carbohidrates_info')
-    .insert({
+    .upsert({
       monday_carbohidrates: result.data.monday_carbohidrates as number,
       tuesday_carbohidrates: result.data.tuesday_carbohidrates as number,
       wednesday_carbohidrates: result.data.wednesday_carbohidrates as number,
@@ -176,11 +262,12 @@ export async function setupDailyNutrition(
       saturday_carbohidrates: result.data.saturday_carbohidrates as number,
       sunday_carbohidrates: result.data.sunday_carbohidrates as number,
       user_id: user?.userId as string,
-    });
+    })
+    .eq('user_id', user!.userId);
   const fatsInsert = await supabase
     .schema('nutrition')
     .from('fats_info')
-    .insert({
+    .upsert({
       monday_fats: result.data.monday_fats as number,
       tuesday_fats: result.data.tuesday_fats as number,
       wednesday_fats: result.data.wednesday_fats as number,
@@ -189,20 +276,26 @@ export async function setupDailyNutrition(
       saturday_fats: result.data.saturday_fats as number,
       sunday_fats: result.data.sunday_fats as number,
       user_id: user?.userId as string,
-    });
+    })
+    .eq('user_id', user!.userId);
   const proteinInsert = await supabase
     .schema('nutrition')
     .from('protein_info')
-    .insert({
-      monday_protein: result.data.monday_protein as number,
-      tuesday_protein: result.data.tuesday_protein as number,
-      wednesday_protein: result.data.wednesday_protein as number,
-      thursday_protein: result.data.thursday_protein as number,
-      friday_protein: result.data.friday_protein as number,
-      saturday_protein: result.data.saturday_protein as number,
-      sunday_protein: result.data.sunday_protein as number,
-      user_id: user?.userId as string,
-    });
+    .upsert(
+      {
+        monday_protein: result.data.monday_protein as number,
+        tuesday_protein: result.data.tuesday_protein as number,
+        wednesday_protein: result.data.wednesday_protein as number,
+        thursday_protein: result.data.thursday_protein as number,
+        friday_protein: result.data.friday_protein as number,
+        saturday_protein: result.data.saturday_protein as number,
+        sunday_protein: result.data.sunday_protein as number,
+        user_id: user?.userId as string,
+      },
+      { onConflict: 'user_id', ignoreDuplicates: false }
+    )
+    .eq('user_id', user!.userId);
+  console.log(caloriesInsert, carbosInsert, fatsInsert, proteinInsert);
   if (
     caloriesInsert.status === 201 &&
     carbosInsert.status === 201 &&
@@ -211,6 +304,83 @@ export async function setupDailyNutrition(
   ) {
     revalidatePath('/home/nutrition');
     return { message: '' };
+  }
+  return { message: 'Something went wrong' };
+}
+
+export async function editDailyNutrition(
+  prevState: { message: string },
+  formData: FormData
+) {
+  const user = await getUser();
+  const rawFormData = Object.fromEntries(formData.entries());
+  const result = dailyNutritionSchema.safeParse(rawFormData);
+  if (!result.success) return { message: 'Something went wrong' };
+  const caloriesInsert = await supabase
+    .schema('nutrition')
+    .from('calories_info')
+    .update({
+      total_calories: null,
+      monday_calories: result.data.monday_calories as number,
+      tuesday_calories: result.data.tuesday_calories as number,
+      wednesday_calories: result.data.wednesday_calories as number,
+      thursday_calories: result.data.thursday_calories as number,
+      friday_calories: result.data.friday_calories as number,
+      saturday_calories: result.data.saturday_calories as number,
+      sunday_calories: result.data.sunday_calories as number,
+    })
+    .eq('user_id', user!.userId);
+  const carbosInsert = await supabase
+    .schema('nutrition')
+    .from('carbohidrates_info')
+    .update({
+      total_carbohidrates: null,
+      monday_carbohidrates: result.data.monday_carbohidrates as number,
+      tuesday_carbohidrates: result.data.tuesday_carbohidrates as number,
+      wednesday_carbohidrates: result.data.wednesday_carbohidrates as number,
+      thursday_carbohidrates: result.data.thursday_carbohidrates as number,
+      friday_carbohidrates: result.data.friday_carbohidrates as number,
+      saturday_carbohidrates: result.data.saturday_carbohidrates as number,
+      sunday_carbohidrates: result.data.sunday_carbohidrates as number,
+    })
+    .eq('user_id', user!.userId);
+  const fatsInsert = await supabase
+    .schema('nutrition')
+    .from('fats_info')
+    .update({
+      total_fats: null,
+      monday_fats: result.data.monday_fats as number,
+      tuesday_fats: result.data.tuesday_fats as number,
+      wednesday_fats: result.data.wednesday_fats as number,
+      thursday_fats: result.data.thursday_fats as number,
+      friday_fats: result.data.friday_fats as number,
+      saturday_fats: result.data.saturday_fats as number,
+      sunday_fats: result.data.sunday_fats as number,
+    })
+    .eq('user_id', user!.userId);
+  const proteinInsert = await supabase
+    .schema('nutrition')
+    .from('protein_info')
+    .update({
+      total_protein: null,
+      monday_protein: result.data.monday_protein as number,
+      tuesday_protein: result.data.tuesday_protein as number,
+      wednesday_protein: result.data.wednesday_protein as number,
+      thursday_protein: result.data.thursday_protein as number,
+      friday_protein: result.data.friday_protein as number,
+      saturday_protein: result.data.saturday_protein as number,
+      sunday_protein: result.data.sunday_protein as number,
+    })
+    .eq('user_id', user!.userId);
+  console.log(caloriesInsert, carbosInsert, fatsInsert, proteinInsert);
+  if (
+    caloriesInsert.status === 204 &&
+    carbosInsert.status === 204 &&
+    fatsInsert.status === 204 &&
+    proteinInsert.status === 204
+  ) {
+    revalidatePath('/home/');
+    redirect('/home/nutrition');
   }
   return { message: 'Something went wrong' };
 }
