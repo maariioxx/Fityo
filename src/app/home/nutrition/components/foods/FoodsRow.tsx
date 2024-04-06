@@ -6,11 +6,7 @@ import {
   deleteFood,
   updateFood,
 } from '@/lib/actions';
-import { getDetailedFoodInfo } from '@/lib/utils';
-import { FetchedFood, FoodsRow } from '@/types/API/foodsrow';
-import { FoodNutrients } from '@/types/API/nutritionInstantEndpoint';
-import { ParsedFood } from '@/types/API/nutritionSearchEndpoint';
-import { Database } from 'db.types';
+import { FoodsRow } from '@/types/API/foodsrow';
 import {
   Button,
   Modal,
@@ -19,7 +15,7 @@ import {
   ModalHeader,
   Tooltip,
 } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { MdAdd, MdEdit, MdDelete } from 'react-icons/md';
 import MacroInfo from './MacroInfo';
 
