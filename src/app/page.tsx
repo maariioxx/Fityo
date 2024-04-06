@@ -8,7 +8,7 @@ export default async function Home() {
   const session = await auth();
   if (typeof session?.user !== 'undefined') redirect('/home');
   return (
-    <main className="grow light-background dark:dark-background min-w-screen min-h-screen flex flex-col items-center justify-center gap-28">
+    <main className="grow light-background dark:dark-background min-w-screen h-screen flex flex-col items-center justify-center gap-28">
       <div className="w-5/6 sm:w-1/2 h-[500px] flex flex-col items-center justify-center gap-8 bg-slate-50 dark:bg-zinc-900 rounded-3xl shadow-2xl">
         <div className="flex flex-col gap-5 items-center">
           <h1
