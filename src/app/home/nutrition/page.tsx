@@ -34,7 +34,7 @@ export default async function Page({
           searchType={searchParams['searchType']}
         />
       ) : (
-        <NutritionSetup />
+        <NutritionSetup update={false} />
       )}
     </div>
   );
