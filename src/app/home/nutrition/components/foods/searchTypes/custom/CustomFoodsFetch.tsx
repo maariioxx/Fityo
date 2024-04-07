@@ -13,7 +13,7 @@ export default async function FityoFoodsFetch({
   const data = await getUserCustomFoods(query);
 
   return (
-    <div className="w-4/5">
+    <div>
       {data !== null && data.length > 0 ? (
         data.map((food) => {
           return <CustomFoods key={food.id} food={food} date={date} />;
