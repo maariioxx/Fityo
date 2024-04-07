@@ -8,15 +8,6 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 export const metadata: Metadata = {
   title: 'Fityo',
   description: 'Your complete fitness app',
-  icons: {
-    icon: [
-      {
-        url: '/assets/favicon-fullgreen.png',
-        href: '/assets/favicon-fullgreen.png',
-        type: 'image/png',
-      },
-    ],
-  },
 };
 
 export default function RootLayout({
