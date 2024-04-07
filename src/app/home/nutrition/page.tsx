@@ -5,6 +5,11 @@ import { supabase } from 'supabase';
 import NutritionInfo from './components/NutritionInfo';
 import NutritionSetup from './components/NutritionSetup';
 import moment from 'moment';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Fityo | Nutrition',
+};
 
 export default async function Page({
   searchParams,

@@ -8,6 +8,11 @@ import moment from 'moment';
 import HomeSetupButton from './components/HomeSetupButton';
 import MeasuresSummary from './components/measures/MeasuresSummary';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Fityo | Home',
+};
 
 export default async function Page() {
   const user = await getUser();
@@ -25,8 +30,8 @@ export default async function Page() {
     .eq('user_id', user.userId);
   const todayMeasures = await getMeasuresByDate();
   return (
-    <div className="bg-slate-50 dark:bg-zinc-950 w-screen min-h-[91.4vh] mt-20 rounded-t-[100px] grid gap-12 lg:gap-0 lg:grid-cols-2 lg:grid-rows-[75%,25%]">
-      <div className="row-start-1 row-end-3 border-t-2 lg:border-2 rounded-t-[100px] lg:rounded-tr-[0px] border-slate-400 dark:border-zinc-800 grid grid-rows-[20%,80%] justify-center gap-8 lg:gap-0">
+    <div className="bg-slate-50 dark:bg-zinc-950 w-screen min-h-[91.4vh] mt-20 rounded-t-[100px] grid gap-12 lg:gap-0 lg:grid-cols-2 lg:grid-rows-1">
+      <div className="row-start-1 row-end-3 border-t-2 lg:border-2 rounded-t-[100px] lg:rounded-tr-[0px] border-slate-400 dark:border-zinc-800 grid grid-rows-[20%,80%] justify-center items-center gap-8 lg:gap-0">
         <Link href="/home/nutrition">
           <h1 className="text-5xl pt-8 text-center">Nutrition</h1>
         </Link>

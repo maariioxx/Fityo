@@ -2,10 +2,13 @@ import { getMeasuresByDate, getMeasuresByInterval, getUser } from '@/lib/utils';
 import MeasuresSetup from './components/MeasuresSetup';
 import { auth } from '@/auth/auth';
 import { redirect } from 'next/navigation';
-import { supabase } from 'supabase';
-import { getMeasures } from '@/lib/utils';
 import MeasuresGraph from './components/MeasuresGraph';
 import MeasuresSummary from '../components/measures/MeasuresSummary';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Fityo | Measures',
+};
 
 export default async function Page() {
   const user = await getUser();
