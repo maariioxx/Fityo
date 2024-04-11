@@ -21,7 +21,7 @@ export default function FoodsSearch() {
     } else {
       params.delete('query');
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, 200);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function FoodsSearch() {
     } else {
       params.delete('searchType');
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, [searchType]);
 
   return (

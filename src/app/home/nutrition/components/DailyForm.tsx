@@ -60,53 +60,53 @@ export default function Form({ update }: { update: boolean }) {
     <>
       <form
         action={formAction}
-        className="relative grid grid-cols-[1fr,150px,150px,150px,200px] grid-rows-9 gap-4"
+        className="relative grid grid-cols-[250px,80px,80px,80px,200px] lg:grid-cols-[1fr,150px,150px,150px,200px] grid-rows-9 gap-2 lg:gap-8 max-w-screen"
       >
-        <p className="self-center justify-self-end pr-10">Calories</p>
-        <p className="self-center justify-self-center">Carbohidrates</p>
+        <p className="self-center justify-self-end md:pr-10">Calories</p>
+        <p className="self-center justify-self-center">Carbohydrates</p>
         <p className="self-center justify-self-center">Fats</p>
         <p className="self-center justify-self-center">Protein</p>
         <p className="self-center justify-self-center">Use macros from total</p>
-        <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1">
+        <label className="grid grid-cols-[50px,80px] lg:grid-cols-[50px,150px] justify-end lg:justify-normal items-center gap-16 col-start-1">
           <span>Total</span>
           <input
             type="number"
             readOnly
             value={total.totalCalories}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             onChange={(e) => {
               onChangeTotal('totalCarbohidrates', e.target.value);
             }}
             value={total.totalCarbohidrates}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             onChange={(e) => {
               onChangeTotal('totalFats', e.target.value);
             }}
             value={total.totalFats}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             onChange={(e) => {
               onChangeTotal('totalProtein', e.target.value);
             }}
             value={total.totalProtein}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1">
+        <label className="grid grid-cols-[50px,80px] lg:grid-cols-[50px,150px] justify-end lg:justify-normal items-center gap-16 col-start-1">
           Monday
           <input
             name="monday_calories"
@@ -122,10 +122,10 @@ export default function Form({ update }: { update: boolean }) {
             }
             onChange={onChangeDays}
             type="number"
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             name="monday_carbohidrates"
             value={
@@ -135,10 +135,10 @@ export default function Form({ update }: { update: boolean }) {
             }
             onChange={onChangeDays}
             type="number"
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="monday_fats"
@@ -146,10 +146,10 @@ export default function Form({ update }: { update: boolean }) {
               daysUseTotal.mondayFromTotal ? total.totalFats : days.monday_fats
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="monday_protein"
@@ -159,10 +159,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.monday_protein
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="flex items-center justify-center">
+        <label className="flex items-center justify-center w-[200px]">
           <Checkbox
             color="success"
             onClick={() =>
@@ -174,7 +174,7 @@ export default function Form({ update }: { update: boolean }) {
             className="col-start-5"
           />
         </label>
-        <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1">
+        <label className="grid grid-cols-[50px,80px] lg:grid-cols-[50px,150px] justify-end lg:justify-normal items-center gap-16 col-start-1">
           Tuesday
           <input
             name="tuesday_calories"
@@ -190,10 +190,10 @@ export default function Form({ update }: { update: boolean }) {
             }
             onChange={onChangeDays}
             type="number"
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="tuesday_carbohidrates"
@@ -203,10 +203,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.tuesday_carbohidrates
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="tuesday_fats"
@@ -216,10 +216,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.tuesday_fats
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[100px]">
           <input
             type="number"
             name="tuesday_protein"
@@ -229,7 +229,7 @@ export default function Form({ update }: { update: boolean }) {
                 : days.tuesday_protein
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
         <label className="flex items-center justify-center">
@@ -244,7 +244,7 @@ export default function Form({ update }: { update: boolean }) {
             className="col-start-5"
           />
         </label>
-        <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1">
+        <label className="grid grid-cols-[50px,80px] lg:grid-cols-[50px,150px] justify-end lg:justify-normal items-center gap-16 col-start-1">
           Wednesday
           <input
             name="wednesday_calories"
@@ -260,10 +260,10 @@ export default function Form({ update }: { update: boolean }) {
             }
             onChange={onChangeDays}
             type="number"
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="wednesday_carbohidrates"
@@ -273,10 +273,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.wednesday_carbohidrates
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="wednesday_fats"
@@ -286,10 +286,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.wednesday_fats
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="wednesday_protein"
@@ -299,7 +299,7 @@ export default function Form({ update }: { update: boolean }) {
                 : days.wednesday_protein
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
         <label className="flex items-center justify-center">
@@ -314,7 +314,7 @@ export default function Form({ update }: { update: boolean }) {
             className="col-start-5"
           />
         </label>
-        <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1">
+        <label className="grid grid-cols-[50px,80px] lg:grid-cols-[50px,150px] justify-end lg:justify-normal items-center gap-16 col-start-1">
           Thursday
           <input
             name="thursday_calories"
@@ -330,10 +330,10 @@ export default function Form({ update }: { update: boolean }) {
             }
             onChange={onChangeDays}
             type="number"
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="thursday_carbohidrates"
@@ -343,10 +343,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.thursday_carbohidrates
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="thursday_fats"
@@ -356,10 +356,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.thursday_fats
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="thursday_protein"
@@ -369,7 +369,7 @@ export default function Form({ update }: { update: boolean }) {
                 : days.thursday_protein
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
         <label className="flex items-center justify-center">
@@ -384,7 +384,7 @@ export default function Form({ update }: { update: boolean }) {
             className="col-start-5"
           />
         </label>
-        <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1">
+        <label className="grid grid-cols-[50px,80px] lg:grid-cols-[50px,150px] justify-end lg:justify-normal items-center gap-16 col-start-1">
           Friday
           <input
             name="friday_calories"
@@ -400,10 +400,10 @@ export default function Form({ update }: { update: boolean }) {
             }
             onChange={onChangeDays}
             type="number"
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="friday_carbohidrates"
@@ -413,10 +413,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.friday_carbohidrates
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="friday_fats"
@@ -424,10 +424,10 @@ export default function Form({ update }: { update: boolean }) {
               daysUseTotal.fridayFromTotal ? total.totalFats : days.friday_fats
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="friday_protein"
@@ -437,7 +437,7 @@ export default function Form({ update }: { update: boolean }) {
                 : days.friday_protein
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
         <label className="flex items-center justify-center">
@@ -452,7 +452,7 @@ export default function Form({ update }: { update: boolean }) {
             className="col-start-5"
           />
         </label>
-        <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1">
+        <label className="grid grid-cols-[50px,80px] lg:grid-cols-[50px,150px] justify-end lg:justify-normal items-center gap-16 col-start-1">
           Saturday
           <input
             name="saturday_calories"
@@ -468,10 +468,10 @@ export default function Form({ update }: { update: boolean }) {
             }
             onChange={onChangeDays}
             type="number"
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="saturday_carbohidrates"
@@ -481,10 +481,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.saturday_carbohidrates
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="saturday_fats"
@@ -494,10 +494,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.saturday_fats
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="w-[150px]">
+        <label className="w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="saturday_protein"
@@ -507,7 +507,7 @@ export default function Form({ update }: { update: boolean }) {
                 : days.saturday_protein
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
         <label className="flex items-center justify-center">
@@ -522,7 +522,7 @@ export default function Form({ update }: { update: boolean }) {
             className="col-start-5"
           />
         </label>
-        <label className="row-start-9 grid grid-cols-[50px,150px] items-center gap-16 col-start-1">
+        <label className="row-start-9 grid grid-cols-[50px,80px] lg:grid-cols-[50px,150px] justify-end lg:justify-normal items-center gap-16 col-start-1">
           Sunday
           <input
             name="sunday_calories"
@@ -538,10 +538,10 @@ export default function Form({ update }: { update: boolean }) {
             }
             onChange={onChangeDays}
             type="number"
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="row-start-9 w-[150px]">
+        <label className="row-start-9 w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="sunday_carbohidrates"
@@ -551,10 +551,10 @@ export default function Form({ update }: { update: boolean }) {
                 : days.sunday_carbohidrates
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="row-start-9 w-[150px]">
+        <label className="row-start-9 w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="sunday_fats"
@@ -562,10 +562,10 @@ export default function Form({ update }: { update: boolean }) {
               daysUseTotal.sundayFromTotal ? total.totalFats : days.sunday_fats
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
-        <label className="row-start-9 w-[150px]">
+        <label className="row-start-9 w-[80px] lg:w-[150px]">
           <input
             type="number"
             name="sunday_protein"
@@ -575,7 +575,7 @@ export default function Form({ update }: { update: boolean }) {
                 : days.sunday_protein
             }
             onChange={onChangeDays}
-            className="form-input number-input w-[150px]"
+            className="form-input number-input w-[80px] lg:w-[150px]"
           />
         </label>
         <label className="flex items-center justify-center">

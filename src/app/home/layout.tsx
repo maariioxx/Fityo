@@ -1,4 +1,5 @@
 import Navbar from '@/app/home/components/Navbar';
+import Footer from './components/Footer';
 
 export default function HomeLayout({
   children,
@@ -9,6 +10,7 @@ export default function HomeLayout({
     <div className="grow flex flex-col items-center w-screen bg-green-700">
       <Navbar />
       {children}
+      <Footer />
     </div>
   );
 }

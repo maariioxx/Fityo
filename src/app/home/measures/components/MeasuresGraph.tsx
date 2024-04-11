@@ -28,7 +28,10 @@ export default function MeasuresGraph({ data }: { data: MeasuresData }) {
   return (
     <div className="flex flex-col gap-2 items-center">
       <h2>Measures evolution during last 3 months</h2>
-      <ResponsiveContainer height={300} className="max-w-[600px]">
+      <ResponsiveContainer
+        height={300}
+        className="!w-[350px] pr-3 md:!w-auto md:max-w-[600px] text-zinc-950"
+      >
         <LineChart data={data} className="mr-12">
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" tick={false} />

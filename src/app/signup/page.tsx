@@ -20,14 +20,6 @@ export default function Page() {
           <FaGoogle className="mr-3 mt-[0.05rem]" />
           <span>Sign in with Google</span>
         </Button>
-        <Button
-          size="xl"
-          className="w-64 bg-zinc-900 dark:bg-black dark:enabled:hover:bg-zinc-900 enabled:hover:bg-zinc-950"
-          onClick={() => signIn('github', { callbackUrl: '/signup/2' })}
-        >
-          <FaGithub className="mr-3 mt-[0.05rem]" />
-          <span>Sign in with Github</span>
-        </Button>
       </div>
       <div className="inline-flex items-center justify-center w-full">
         <hr className="w-48 h-px my-8 bg-green-700 border-0 dark:bg-gray-700" />

@@ -147,7 +147,6 @@ export async function editTotalNutrition(
   prevState: { message: string },
   formData: FormData
 ) {
-  console.log('eee');
   const result = totalNutritionSchema.safeParse({
     total_calories: formData.get('total_calories'),
     total_carbohidrates: formData.get('total_carbohidrates'),
@@ -391,6 +390,13 @@ export async function setupMeasures(formData: FormData) {
   const user = await getUser();
   const rawFormData = Object.fromEntries(formData);
   console.log(rawFormData);
+  let atLeastOneFieldFilled = false;
+  for (const field in rawFormData) {
+    if (field !== 'date' && rawFormData[field] !== '') {
+      atLeastOneFieldFilled = true;
+    }
+  }
+  if (!atLeastOneFieldFilled) return;
   const insert = await supabase
     .schema('fityo')
     .from('measures')
@@ -413,6 +419,14 @@ export async function addMeasures(formData: FormData) {
   const today = moment().format('YYYY-MM-DD');
   const rawFormData = Object.fromEntries(formData);
   const todayMeasures = await getMeasuresByDate(moment().format('YYYY-MM-DD'));
+  console.log(rawFormData);
+  let atLeastOneFieldFilled = false;
+  for (const field in rawFormData) {
+    if (rawFormData[field] !== '') {
+      atLeastOneFieldFilled = true;
+    }
+  }
+  if (!atLeastOneFieldFilled) return;
   if (typeof todayMeasures === 'undefined') {
     const insert = await supabase
       .schema('fityo')

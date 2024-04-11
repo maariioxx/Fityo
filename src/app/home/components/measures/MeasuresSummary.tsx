@@ -22,17 +22,24 @@ export default function MeasuresSummary({
     >
       {FORM_FIELDS.map((field, index) => {
         return (
-          <label key={index} className="relative grid grid-cols-2 gap-4">
+          <label key={index} className="relative grid grid-cols-2 space-x-12">
             <div className="grid grid-cols-3 gap-8 items-center">
               {field[0].toUpperCase() + field.slice(1)}:
-              <span>
+              <span
+                className={`p-2 mr-8 ${
+                  typeof todayMeasures !== 'undefined' &&
+                  todayMeasures[`${field}`] !== ''
+                    ? 'block'
+                    : 'invisible'
+                }`}
+              >
                 {typeof todayMeasures !== 'undefined' &&
-                  todayMeasures[`${field}`] !== '' &&
                   todayMeasures[`${field}`]}
+                {index === 0 ? 'kg' : 'cm'}
               </span>
               <Button
                 color="success"
-                className="max-w-16"
+                className="max-w-16 !px-4 !ml-6"
                 onClick={() =>
                   setShowInputs(
                     showInputs.map((value, i) => {
@@ -55,6 +62,7 @@ export default function MeasuresSummary({
             <input
               type="number"
               name={field}
+              max={1000}
               defaultValue={
                 typeof todayMeasures !== 'undefined' &&
                 todayMeasures[`${field}`] !== ''
@@ -69,7 +77,7 @@ export default function MeasuresSummary({
               } transition-transform`}
             />
             <span
-              className={`absolute top-3 right-14 text-sm text-gray-400 ${
+              className={`absolute top-3 right-8 md:right-40 lg:right-4 text-sm text-gray-400 ${
                 showInputs[index]
                   ? 'scale-100 translate-x-0'
                   : 'scale-0 -translate-x-8'

@@ -23,7 +23,7 @@ export default async function ProfileDropdown({
         <span>{session?.user?.name}</span>
         <span>{session?.user?.email}</span>
       </DropdownHeader>
-      <Link href="/home/settings">
+      <Link href="/home/settings?show=account">
         <DropdownItem>Settings</DropdownItem>
       </Link>
       <DropdownItem className="hover:bg-red-300 focus:bg-red-300 dark:hover:bg-red-900 dark:focus:bg-red-900">

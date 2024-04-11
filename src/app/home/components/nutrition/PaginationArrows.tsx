@@ -26,7 +26,7 @@ export default function PaginationArrows({ date }: { date: string }) {
       const newDate = moment().format('DD/MM/YYYY');
       params.set('date', newDate);
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
   return (

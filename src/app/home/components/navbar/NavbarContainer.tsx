@@ -31,7 +31,7 @@ export default function NavbarContainer({
           {toggleNavbar ? <MdClose /> : <MdMenu />}
         </span>
         <Image
-          src="/assets/logo-48.png"
+          src="/assets/logo-nobg.png"
           alt="Fityo logo"
           width={48}
           height={48}
@@ -44,10 +44,10 @@ export default function NavbarContainer({
         } top-0 flex flex-col sm:flex-row bg-green-700 w-screen items-center gap-8 px-6 py-3 justify-around z-10`}
       >
         <Image
-          src="/assets/logo-48.png"
+          src="/assets/logo-nobg.png"
           alt="Fityo logo"
           width={48}
-          height={48}
+          height={488}
           className="drop-shadow-xl"
         />
         <Links />

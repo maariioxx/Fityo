@@ -20,6 +20,7 @@ export default function MeasuresSetup() {
           <input
             type="number"
             name="height"
+            max={1000}
             className="form-input number-input"
           />
           <span className="absolute right-2 top-3 text-sm text-gray-400">
@@ -31,6 +32,7 @@ export default function MeasuresSetup() {
           <input
             type="number"
             name="weight"
+            max={1000}
             className="form-input number-input"
           />
           <span className="absolute right-2 top-3 text-sm text-gray-400">
@@ -42,6 +44,7 @@ export default function MeasuresSetup() {
           <input
             type="number"
             name="neck"
+            max={1000}
             className="form-input number-input"
           />
           <span className="absolute right-2 top-3 text-sm text-gray-400">
@@ -53,6 +56,7 @@ export default function MeasuresSetup() {
           <input
             type="number"
             name="chest"
+            max={1000}
             className="form-input number-input"
           />
           <span className="absolute right-2 top-3 text-sm text-gray-400">
@@ -61,7 +65,12 @@ export default function MeasuresSetup() {
         </label>
         <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1 relative">
           Arm:
-          <input type="number" name="arm" className="form-input number-input" />
+          <input
+            type="number"
+            name="arm"
+            max={1000}
+            className="form-input number-input"
+          />
           <span className="absolute right-2 top-3 text-sm text-gray-400">
             cm
           </span>
@@ -71,6 +80,7 @@ export default function MeasuresSetup() {
           <input
             type="number"
             name="belly"
+            max={1000}
             className="form-input number-input"
           />
           <span className="absolute right-2 top-3 text-sm text-gray-400">
@@ -79,7 +89,12 @@ export default function MeasuresSetup() {
         </label>
         <label className="grid grid-cols-[50px,150px] items-center gap-16 col-start-1 relative">
           Leg:
-          <input type="number" name="leg" className="form-input number-input" />
+          <input
+            type="number"
+            name="leg"
+            max={1000}
+            className="form-input number-input"
+          />
           <span className="absolute right-2 top-3 text-sm text-gray-400">
             cm
           </span>
