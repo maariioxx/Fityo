@@ -1,29 +1,31 @@
+import { Button } from 'flowbite-react';
 import Link from 'next/link';
+import { Dispatch, SetStateAction } from 'react';
 
 export default function SettingsNavbar({
-  searchParams,
+  showNutrition,
+  setShowNutrition,
 }: {
-  searchParams: { show: 'account' | 'nutrition' };
+  showNutrition: boolean;
+  setShowNutrition: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
-    <div className={`${searchParams.show === 'account' && 'pb-8'}`}>
+    <div className={`${!showNutrition && 'pb-8'}`}>
       <div className="flex justify-evenly gap-4 pb-2">
-        <Link
-          href={'/home/settings?show=account'}
-          className={`text-xl hover:bg-green-700 hover:text-white py-2 px-3 rounded-xl transition-colors ${
-            searchParams.show === 'account' && 'bg-green-700 text-white'
-          }`}
+        <Button
+          onClick={() => setShowNutrition(false)}
+          color={`${!showNutrition ? 'success' : 'light'}`}
+          className="text-xl py-0.5 px-1 rounded-xl transition-colors"
         >
           Account
-        </Link>
-        <Link
-          href={'/home/settings'}
-          className={`text-xl hover:bg-green-700 hover:text-white py-2 px-3 rounded-xl transition-colors ${
-            searchParams.show !== 'account' && 'bg-green-700 text-white'
-          }`}
+        </Button>
+        <Button
+          onClick={() => setShowNutrition(true)}
+          color={`${showNutrition ? 'success' : 'light'}`}
+          className="text-xl py-0.5 px-1 rounded-xl transition-colors"
         >
           Nutrition
-        </Link>
+        </Button>
       </div>
       <hr />
     </div>

@@ -57,10 +57,6 @@ export default function Form({
     const res = await editProfileWithData(data);
     console.log(res);
   };
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
       <label className="flex flex-col">

@@ -4,6 +4,7 @@ import { Session } from 'next-auth';
 import Form from './Form';
 import NutritionSetup from '../../nutrition/components/NutritionSetup';
 import SettingsNavbar from './SettingsNavbar';
+import { useState } from 'react';
 
 export type User = {
   userId: string;
@@ -21,25 +22,26 @@ export default function SettingsController({
   user,
   session,
   usernames,
-  searchParams,
 }: {
   user: User;
   session: Session;
   usernames: Usernames;
-  searchParams: { show: 'account' | 'nutrition' };
 }) {
+  const [showNutrition, setShowNutrition] = useState(false);
   return (
     <div>
-      {searchParams.show === 'account' ? (
+      <SettingsNavbar
+        showNutrition={showNutrition}
+        setShowNutrition={setShowNutrition}
+      />
+      {showNutrition ? (
         <>
-          <SettingsNavbar searchParams={searchParams} />
-          <Form user={user!} session={session!} usernames={usernames!} />
+          <NutritionSetup update />
         </>
       ) : (
-        <div>
-          <SettingsNavbar searchParams={searchParams} />
-          <NutritionSetup update />
-        </div>
+        <>
+          <Form user={user!} session={session!} usernames={usernames!} />
+        </>
       )}
     </div>
   );
