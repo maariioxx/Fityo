@@ -19,12 +19,9 @@ export default function Loading() {
         <div className="lg:flex lg:gap-32 lg:items-start space-y-14 lg:space-y-0 p-12">
           <div className="grid lg:grid-cols-2 mt-12 lg:gap-10 justify-center lg:scale-125">
             <CaloriesLoadingSkeleton />
-
             <div className="flex flex-col gap-7 -mt-2 lg:pt-3">
               <CarbosLoadingSkeleton />
-
               <FatsLoadingSkeleton />
-
               <ProteinLoadingSkeleton />
             </div>
           </div>
