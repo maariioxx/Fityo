@@ -41,6 +41,7 @@ export default function FoodsSearch() {
           className="form-input w-48 lg:w-72"
           onChange={(e) => handleSearch(e.target.value)}
           defaultValue={searchParams.get('query')?.toString()}
+          aria-label="Search food"
         />
         <MdSearch className="absolute bottom-2.5 right-3 text-2xl" />
       </div>

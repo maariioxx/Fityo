@@ -16,8 +16,8 @@ export default function Loading() {
           <div className="bg-gray-300 h-6 w-6 rounded-full"></div>
           <div className="h-5 bg-gray-200 rounded w-16"></div>
         </div>
-        <div className="space-y-14">
-          <div className="grid lg:grid-cols-2 lg:gap-10 justify-center">
+        <div className="lg:flex lg:gap-32 lg:items-start space-y-14 lg:space-y-0 p-12">
+          <div className="grid lg:grid-cols-2 mt-12 lg:gap-10 justify-center lg:scale-125">
             <CaloriesLoadingSkeleton />
 
             <div className="flex flex-col gap-7 -mt-2 lg:pt-3">
@@ -28,7 +28,7 @@ export default function Loading() {
               <ProteinLoadingSkeleton />
             </div>
           </div>
-          <div className="w-[99%] lg:w-[700px] flex flex-col items-center">
+          <div className="w-[105%] lg:w-[700px] flex flex-col items-center">
             <div
               role="status"
               className="w-[700px] p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700"

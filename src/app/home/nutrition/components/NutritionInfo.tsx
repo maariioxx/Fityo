@@ -12,11 +12,11 @@ export default function NutritionInfo({
   searchType: string;
 }) {
   return (
-    <div className="flex flex-col items-center gap-4 w-screen">
+    <div className="flex flex-col items-center gap-12 w-screen">
       <PaginationArrows date={date} />
-      <div className="space-y-14">
+      <div className="lg:flex lg:gap-32 lg:items-start space-y-14 lg:space-y-0 p-12">
         <NutritionSummary date={date} />
-        <div className="w-[99%] lg:w-[700px] flex flex-col items-center">
+        <div className="w-[105%] lg:w-[700px] flex flex-col items-center">
           <FoodsInfo date={date} query={query} searchType={searchType} />
         </div>
       </div>

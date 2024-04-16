@@ -35,7 +35,12 @@ export default function CreateFood() {
   return (
     <div className="pt-0.5 relative">
       <Tooltip content="Create custom food">
-        <Button color="success" size="sm" onClick={() => setOpenModal(true)}>
+        <Button
+          color="success"
+          size="sm"
+          onClick={() => setOpenModal(true)}
+          aria-label="Create custom food"
+        >
           <MdAdd className="text-2xl" />
         </Button>
       </Tooltip>

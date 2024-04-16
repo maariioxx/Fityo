@@ -18,7 +18,7 @@ export default function MeasuresSummary({
   return (
     <form
       action={addMeasures}
-      className="flex flex-col gap-4 w-4/5 lg:max-w-sm"
+      className="flex flex-col gap-4 w-4/5 lg:w-auto lg:max-w-sm"
     >
       {FORM_FIELDS.map((field, index) => {
         return (
@@ -40,6 +40,7 @@ export default function MeasuresSummary({
               <Button
                 color="success"
                 className="max-w-16 !px-4 !ml-6"
+                aria-label="Open or close measure input"
                 onClick={() =>
                   setShowInputs(
                     showInputs.map((value, i) => {
@@ -77,7 +78,7 @@ export default function MeasuresSummary({
               } transition-transform`}
             />
             <span
-              className={`absolute top-3 right-8 md:right-40 lg:right-4 text-sm text-gray-400 ${
+              className={`absolute top-3 right-8 md:right-40 lg:right-14 text-sm text-gray-400 ${
                 showInputs[index]
                   ? 'scale-100 translate-x-0'
                   : 'scale-0 -translate-x-8'

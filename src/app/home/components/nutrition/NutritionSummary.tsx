@@ -12,7 +12,7 @@ import ProteinProgressBar from './summary/ProteinProgressBar';
 
 export default function NutritionSummary({ date }: { date: string }) {
   return (
-    <div className="grid lg:grid-cols-2 lg:gap-10 justify-center">
+    <div className="grid lg:grid-cols-2 mt-12 justify-center lg:scale-125">
       <Suspense fallback={<CaloriesLoadingSkeleton />}>
         <CaloriesProgressBar date={date} />
       </Suspense>

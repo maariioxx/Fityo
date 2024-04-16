@@ -34,6 +34,7 @@ export default function PaginationArrows({ date }: { date: string }) {
       <Button
         size="xs"
         color="success"
+        aria-label="See 1 day before"
         onClick={() => handleDayChange('before')}
         className="z-0"
       >
@@ -43,6 +44,7 @@ export default function PaginationArrows({ date }: { date: string }) {
       <Button
         size="xs"
         color="success"
+        aria-label="See 1 day after"
         onClick={() => handleDayChange('after')}
       >
         {<MdKeyboardArrowRight className="text-2xl" />}
