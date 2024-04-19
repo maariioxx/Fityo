@@ -42,7 +42,7 @@ export default async function Page() {
           <HomeSetupButton link="/home/nutrition" />
         )}
       </div>
-      <div className="border-t-2 lg:rounded-tr-[100px] border-slate-400 dark:border-zinc-800 grid grid-rows-[20%,80%] justify-center items-center justify-items-center gap-8 lg:gap-0 pb-20 lg:pb-0">
+      <div className="border-t-2 lg:rounded-tr-[100px] border-slate-400 dark:border-zinc-800 grid grid-rows-[20%,80%] justify-center items-center justify-items-center gap-8 lg:gap-0 pb-32 mb-12 lg:pb-0">
         <Link href="/home/measures">
           <h1 className="text-5xl pt-4">Measures</h1>
         </Link>
