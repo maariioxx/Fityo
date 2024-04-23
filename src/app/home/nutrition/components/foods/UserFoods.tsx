@@ -5,7 +5,7 @@ export default async function UserFoods({ date }: { date: string }) {
   const foods = await getUserFoods(date);
   return (
     <div className="space-y-4">
-      <h1 className="text-xl">
+      <h1 className="text-xl text-center lg:text-left lg:pl-4">
         {typeof foods !== 'undefined' && foods!.length > 0
           ? "Today's foods"
           : 'Nothing here!'}
