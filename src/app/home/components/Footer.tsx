@@ -1,8 +1,8 @@
 import { FaGithub } from 'react-icons/fa';
-
+import Image from 'next/image';
 export default function Footer() {
   return (
-    <div className="bg-slate-200 dark:bg-zinc-900 w-screen flex justify-center py-4">
+    <div className="bg-slate-200 dark:bg-zinc-900 w-screen flex flex-col md:flex-row items-center justify-center py-4 gap-2 md:gap-8">
       <p className="flex items-center gap-2">
         Made by{' '}
         <a
@@ -18,6 +18,13 @@ export default function Footer() {
         </a>{' '}
         | 2024
       </p>
+      <Image
+        src="/assets/edamam.svg"
+        width={200}
+        height={70}
+        alt="Powered by Edamam"
+        className="pb-3"
+      />
     </div>
   );
 }
