@@ -1,23 +1,23 @@
 'use client';
 
-import { addMeasures } from '@/lib/actions';
+import { addMeasurements } from '@/lib/actions';
 import { useState } from 'react';
 import { Button } from 'flowbite-react';
 import { MdAdd, MdClose, MdEdit } from 'react-icons/md';
-import { TodayMeasures } from '@/types/API/measuressummary';
+import { TodayMeasurements } from '@/types/API/measurementssummary';
 
 const FORM_FIELDS = ['weight', 'neck', 'chest', 'arm', 'belly', 'leg'] as const;
 const SHOW_INPUT = [false, false, false, false, false, false];
 
-export default function MeasuresSummary({
-  todayMeasures,
+export default function MeasurementsSummary({
+  todayMeasurements,
 }: {
-  todayMeasures: TodayMeasures;
+  todayMeasurements: TodayMeasurements;
 }) {
   const [showInputs, setShowInputs] = useState(SHOW_INPUT);
   return (
     <form
-      action={addMeasures}
+      action={addMeasurements}
       className="flex flex-col gap-4 w-4/5 lg:w-auto lg:max-w-sm"
     >
       {FORM_FIELDS.map((field, index) => {
@@ -27,14 +27,14 @@ export default function MeasuresSummary({
               {field[0].toUpperCase() + field.slice(1)}:
               <span
                 className={`p-2 mr-8 ${
-                  typeof todayMeasures !== 'undefined' &&
-                  todayMeasures[`${field}`] !== ''
+                  typeof todayMeasurements !== 'undefined' &&
+                  todayMeasurements[`${field}`] !== ''
                     ? 'block'
                     : 'invisible'
                 }`}
               >
-                {typeof todayMeasures !== 'undefined' &&
-                  todayMeasures[`${field}`]}
+                {typeof todayMeasurements !== 'undefined' &&
+                  todayMeasurements[`${field}`]}
                 {index === 0 ? 'kg' : 'cm'}
               </span>
               <Button
@@ -52,8 +52,8 @@ export default function MeasuresSummary({
               >
                 {showInputs[index] ? (
                   <MdClose className="text-2xl pointer-events-none" />
-                ) : typeof todayMeasures !== 'undefined' &&
-                  todayMeasures[`${field}`] !== '' ? (
+                ) : typeof todayMeasurements !== 'undefined' &&
+                  todayMeasurements[`${field}`] !== '' ? (
                   <MdEdit className="text-2xl pointer-events-none" />
                 ) : (
                   <MdAdd className="text-2xl pointer-events-none" />
@@ -65,9 +65,9 @@ export default function MeasuresSummary({
               name={field}
               max={1000}
               defaultValue={
-                typeof todayMeasures !== 'undefined' &&
-                todayMeasures[`${field}`] !== ''
-                  ? todayMeasures[`${field}`]
+                typeof todayMeasurements !== 'undefined' &&
+                todayMeasurements[`${field}`] !== ''
+                  ? todayMeasurements[`${field}`]
                   : ''
               }
               step="0.01"

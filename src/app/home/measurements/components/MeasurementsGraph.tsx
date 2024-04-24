@@ -1,6 +1,6 @@
 'use client';
 
-import { MeasuresData } from '@/types/API/measuresdata';
+import { MeasurementsData } from '@/types/API/measurementsdata';
 import { useTheme } from 'next-themes';
 import {
   ResponsiveContainer,
@@ -13,7 +13,11 @@ import {
   Tooltip,
 } from 'recharts';
 
-export default function MeasuresGraph({ data }: { data: MeasuresData }) {
+export default function MeasurementsGraph({
+  data,
+}: {
+  data: MeasurementsData;
+}) {
   const { theme } = useTheme();
 
   for (const measure of data) {
@@ -27,7 +31,7 @@ export default function MeasuresGraph({ data }: { data: MeasuresData }) {
 
   return (
     <div className="flex flex-col gap-2 items-center">
-      <h2>Measures evolution during last 3 months</h2>
+      <h2>Measurements evolution during last 3 months</h2>
       <ResponsiveContainer
         height={300}
         className="!w-[350px] pr-3 md:!w-auto md:max-w-[600px] text-zinc-950"

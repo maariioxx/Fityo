@@ -1,4 +1,4 @@
-export type MeasuresData = {
+export type MeasurementsData = {
   weight: number;
   neck: number;
   chest: number;

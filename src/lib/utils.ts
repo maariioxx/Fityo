@@ -198,15 +198,15 @@ export async function getUserCustomFoods(query: string) {
   return foods.data;
 }
 
-export async function getMeasures() {
+export async function getMeasurements() {
   const user = await getUser();
-  const measures = await supabase
+  const measurements = await supabase
     .schema('fityo')
     .from('measures')
     .select('weight, neck, chest, arm, belly, leg, date')
     .eq('user_id', user!.userId)
     .order('date');
-  let measuresData = measures.data!.map((measure) => {
+  let measurementsData = measurements.data!.map((measure) => {
     return {
       weight: +measure!.weight!,
       neck: +measure!.neck!,
@@ -217,21 +217,21 @@ export async function getMeasures() {
       date: measure!.date!,
     };
   });
-  return measuresData;
+  return measurementsData;
 }
 
-export async function getMeasuresByInterval(
+export async function getMeasurementsByInterval(
   interval: string = moment().subtract(3, 'months').format('YYYY-MM-DD')
 ) {
   const user = await getUser();
-  const measures = await supabase
+  const measurements = await supabase
     .schema('fityo')
     .from('measures')
     .select('weight, neck, chest, arm, belly, leg, date')
     .eq('user_id', user!.userId)
     .gt('date', moment().subtract(3, 'months').format('YYYY-MM-DD'))
     .order('date');
-  let measuresData = measures.data!.map((measure) => {
+  let measurementsData = measurements.data!.map((measure) => {
     return {
       weight: +measure!.weight!,
       neck: +measure!.neck!,
@@ -242,20 +242,20 @@ export async function getMeasuresByInterval(
       date: measure!.date!,
     };
   });
-  return measuresData;
+  return measurementsData;
 }
 
-export async function getMeasuresByDate(
+export async function getMeasurementsByDate(
   date: string = moment().format('YYYY-MM-DD')
 ) {
   const user = await getUser();
-  const measures = await supabase
+  const measurements = await supabase
     .schema('fityo')
     .from('measures')
     .select('weight, neck, chest, arm, belly, leg')
     .eq('user_id', user!.userId)
     .eq('date', date);
-  if (measures.data != null) return measures.data[0];
+  if (measurements.data != null) return measurements.data[0];
 }
 
 export function formatDateToDB(date: string, isBirthdate = false) {

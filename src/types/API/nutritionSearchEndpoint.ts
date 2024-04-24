@@ -16,7 +16,7 @@ export type Next = {
 
 export type Hint = {
   food: HintFood;
-  measures: Measure[];
+  measurements: Measure[];
 };
 
 export type HintFood = {

@@ -1,15 +1,18 @@
-import { setupMeasures } from '@/lib/actions';
+import { setupMeasurements } from '@/lib/actions';
 import { Button } from 'flowbite-react';
 import moment from 'moment';
 import { MdInfo } from 'react-icons/md';
 
-export default function MeasuresSetup() {
+export default function MeasurementsSetup() {
   return (
     <div className="flex flex-col items-center gap-5">
       <p className="flex gap-2 items-center text-green-700">
         <MdInfo /> All fields are optional
       </p>
-      <form action={setupMeasures} className="flex flex-col gap-4 items-center">
+      <form
+        action={setupMeasurements}
+        className="flex flex-col gap-4 items-center"
+      >
         <input
           type="hidden"
           name="date"

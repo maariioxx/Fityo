@@ -1,4 +1,4 @@
-export type TodayMeasures =
+export type TodayMeasurements =
   | {
       weight: string | undefined;
       neck: string | undefined;

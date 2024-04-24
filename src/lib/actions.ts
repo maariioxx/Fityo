@@ -11,7 +11,7 @@ import {
   checkIfUsernameExists,
   formatBirthdateToDb,
   formatDateToDB,
-  getMeasuresByDate,
+  getMeasurementsByDate,
   getUser,
 } from './utils';
 import { revalidatePath } from 'next/cache';
@@ -386,7 +386,7 @@ export async function editDailyNutrition(
 
 // MEASURES
 
-export async function setupMeasures(formData: FormData) {
+export async function setupMeasurements(formData: FormData) {
   const user = await getUser();
   const rawFormData = Object.fromEntries(formData);
   console.log(rawFormData);
@@ -414,11 +414,13 @@ export async function setupMeasures(formData: FormData) {
   revalidatePath('/home');
 }
 
-export async function addMeasures(formData: FormData) {
+export async function addMeasurements(formData: FormData) {
   const user = await getUser();
   const today = moment().format('YYYY-MM-DD');
   const rawFormData = Object.fromEntries(formData);
-  const todayMeasures = await getMeasuresByDate(moment().format('YYYY-MM-DD'));
+  const todayMeasurements = await getMeasurementsByDate(
+    moment().format('YYYY-MM-DD')
+  );
   console.log(rawFormData);
   let atLeastOneFieldFilled = false;
   for (const field in rawFormData) {
@@ -427,7 +429,7 @@ export async function addMeasures(formData: FormData) {
     }
   }
   if (!atLeastOneFieldFilled) return;
-  if (typeof todayMeasures === 'undefined') {
+  if (typeof todayMeasurements === 'undefined') {
     const insert = await supabase
       .schema('fityo')
       .from('measures')
