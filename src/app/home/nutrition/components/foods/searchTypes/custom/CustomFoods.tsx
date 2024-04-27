@@ -1,23 +1,25 @@
 'use client';
 
-import { FoodNutrients } from '@/types/API/nutritionInstantEndpoint';
-import { ParsedFood } from '@/types/API/nutritionSearchEndpoint';
-import { useState } from 'react';
-import FoodsRow from '../../FoodsRow';
 import { CustomFoods } from '@/types/foods/customFoods';
+import { useEffect, useState } from 'react';
+import FoodsRow from '../../FoodsRow';
 
-export function calculateMacros(macro: number, quantity: number) {
-  return (macro / 100) * quantity;
+export function calculateMacros(
+  macro: number,
+  initialQuantity: number,
+  quantity: number
+) {
+  return (macro / initialQuantity) * quantity;
 }
 
-export default function FityoFoods({
+export default function CustomFoods({
   food,
   date,
 }: {
   food: CustomFoods;
   date: string;
 }) {
-  const [quantity, setQuantity] = useState(100);
+  const [quantity, setQuantity] = useState(food.quantity);
   const [calories, setCalories] = useState(food.calories);
   const [carbs, setCarbs] = useState(food.carbohydrates);
   const [sugar, setSugar] = useState(food.sugar);
@@ -29,17 +31,20 @@ export default function FityoFoods({
     let _quantity = quantityInput;
     if (quantityInput >= 1000) _quantity = 1000;
     setQuantity(_quantity);
-    setCalories(calculateMacros(food.calories, _quantity));
-    setCarbs(calculateMacros(food.carbohydrates, _quantity));
-    setSugar(calculateMacros(food.sugar, _quantity));
-    setFats(calculateMacros(food.fats, _quantity));
-    setSaturatedFats(calculateMacros(food.saturated_fats, _quantity));
-    setProtein(calculateMacros(food.protein, _quantity));
+    setCalories(calculateMacros(food.calories, food.quantity, _quantity));
+    setCarbs(calculateMacros(food.carbohydrates, food.quantity, _quantity));
+    setSugar(calculateMacros(food.sugar, food.quantity, _quantity));
+    setFats(calculateMacros(food.fats, food.quantity, _quantity));
+    setSaturatedFats(
+      calculateMacros(food.saturated_fats, food.quantity, _quantity)
+    );
+    setProtein(calculateMacros(food.protein, food.quantity, _quantity));
   };
 
   return (
     <FoodsRow
       food={food}
+      foodId={food.id.toString()}
       date={date}
       quantity={quantity}
       handleQuantityChange={handleQuantityChange}

@@ -49,6 +49,7 @@ export default function FityoFoods({
   return (
     <FoodsRow
       food={food}
+      foodId={food.foodId}
       date={date}
       quantity={quantity}
       handleQuantityChange={handleQuantityChange}

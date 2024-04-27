@@ -17,6 +17,7 @@ export default async function UserFoods({ date }: { date: string }) {
           <div key={crypto.randomUUID()}>
             <FoodsRow
               userFood={food}
+              foodId={food.food_id}
               date={date}
               quantity={food.quantity}
               calories={food.calories}

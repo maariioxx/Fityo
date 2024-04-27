@@ -1,19 +1,19 @@
 'use client';
 
-import {
-  Button,
-  Tooltip,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from 'flowbite-react';
-import { useEffect, useState } from 'react';
-import { MdAdd } from 'react-icons/md';
 import { createCustomFood } from '@/lib/actions';
 import { TCreateFoodSchema, createFoodSchema } from '@/types/forms/createfood';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Tooltip,
+} from 'flowbite-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { MdAdd } from 'react-icons/md';
 
 export default function CreateFood() {
   const { register, handleSubmit } = useForm<TCreateFoodSchema>({

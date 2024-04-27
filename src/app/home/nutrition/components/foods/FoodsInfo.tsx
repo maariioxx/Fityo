@@ -1,11 +1,8 @@
-import { useState } from 'react';
-import { MdSearch } from 'react-icons/md';
-import FoodsSearch from './FoodsSearch';
-import FoodsFetch from './searchTypes/fityo/FityoFoodsFetch';
-import UserFoods from './UserFoods';
-import FityoFoodsFetch from './searchTypes/fityo/FityoFoodsFetch';
-import CustomFoodsFetch from './searchTypes/custom/CustomFoodsFetch';
 import CreateFood from './CreateFood';
+import FoodsSearch from './FoodsSearch';
+import UserFoods from './UserFoods';
+import CustomFoodsFetch from './searchTypes/custom/CustomFoodsFetch';
+import FityoFoodsFetch from './searchTypes/fityo/FityoFoodsFetch';
 
 export default function FoodsInfo({
   query,

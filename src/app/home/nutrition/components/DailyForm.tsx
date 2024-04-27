@@ -1,9 +1,9 @@
 'use client';
-import { Button, Tooltip, Checkbox } from 'flowbite-react';
-import { useEffect, useState } from 'react';
 import { editDailyNutrition, setupDailyNutrition } from '@/lib/actions';
-import { FORM_FIELDS, FORM_TOTAL, DAYS_FROM_TOTAL } from '../utils/formFields';
+import { Button, Checkbox } from 'flowbite-react';
+import { useEffect, useState } from 'react';
 import { useFormState } from 'react-dom';
+import { DAYS_FROM_TOTAL, FORM_FIELDS, FORM_TOTAL } from '../utils/formFields';
 
 export default function Form({ update }: { update: boolean }) {
   const [total, setTotal] = useState(FORM_TOTAL);

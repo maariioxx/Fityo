@@ -15,12 +15,13 @@ import {
   ModalHeader,
   Tooltip,
 } from 'flowbite-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdAdd, MdEdit, MdDelete } from 'react-icons/md';
 import MacroInfo from './MacroInfo';
 
 export default function FoodsRow({
   food,
+  foodId,
   date,
   userFood,
   handleQuantityChange,
@@ -34,6 +35,9 @@ export default function FoodsRow({
   isUserFood,
   isCustomFood,
 }: FoodsRow) {
+  useEffect(() => {
+    console.log(foodId.split('food').length);
+  }, []);
   const [openModal, setOpenModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [modalQuantity, setModalQuantity] = useState(quantity);
@@ -107,14 +111,16 @@ export default function FoodsRow({
   }
   return (
     <div className="space-y-8">
-      <div className="flex flex-col lg:flex-row items-center lg:w-full justify-between gap-7 lg:gap-48 mt-4">
+      <div className="flex flex-col lg:flex-row items-center lg:w-full justify-between gap-7 lg:gap-24 mt-4">
         <div className="flex flex-col gap-2 items-center lg:items-start">
           <h1 className="text-3xl lg:pl-4">
             <span onClick={() => setOpenModal(true)} className="cursor-pointer">
               {isUserFood ? (
                 <span className="text-2xl lg:text-2xl">
                   {userFood.name}
-                  <span className="text-sm"> | {userFood.quantity}g</span>
+                  {foodId.split('food').length !== 1 && (
+                    <span className="text-sm"> | {userFood.quantity}g</span>
+                  )}
                 </span>
               ) : isCustomFood ? (
                 food.name
@@ -302,9 +308,11 @@ export default function FoodsRow({
                     className="form-input number-input max-w-24"
                   />
                 </label>
-                <span className="absolute right-16 sm:right-20 lg:right-8 top-4 lg:top-auto lg:bottom-3.5">
-                  g
-                </span>
+                {!isCustomFood && (
+                  <span className="absolute right-16 sm:right-20 lg:right-8 top-4 lg:top-auto lg:bottom-3.5">
+                    g
+                  </span>
+                )}
               </div>
             </div>
           )}

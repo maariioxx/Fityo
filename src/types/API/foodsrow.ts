@@ -19,6 +19,7 @@ export type FetchedFood = {
 };
 
 type Nutrients = {
+  foodId: string;
   quantity: number;
   calories: number;
   carbs: number;
