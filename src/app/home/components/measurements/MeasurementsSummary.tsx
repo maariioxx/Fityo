@@ -78,7 +78,7 @@ export default function MeasurementsSummary({
               } transition-transform`}
             />
             <span
-              className={`absolute top-3 right-8 md:right-40 lg:right-14 text-sm text-gray-400 ${
+              className={`absolute top-3 right-6 md:right-36 lg:right-14 text-sm text-gray-400 ${
                 showInputs[index]
                   ? 'scale-100 translate-x-0'
                   : 'scale-0 -translate-x-8'
