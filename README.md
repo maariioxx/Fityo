@@ -56,11 +56,11 @@ Este es mi proyecto personal creado para llevar un diario de comidas y alimentos
 
 ## 🚀 Utilización
 
-Para comenzar a usar Fityo es necesario crear una cuenta, ya sea por un email o iniciando sesión mediante una cuenta de Google. Una vez realizado el registro, todas las funcionalidades estarán disponibles para ser configuradas y utilizadas.
+Para comenzar a usar Fityo es necesario crear una cuenta, ya sea por email o iniciando sesión mediante una cuenta de Google. Una vez realizado el registro, todas las funcionalidades estarán disponibles para ser configuradas y utilizadas.
 
 ## 🚧 Roadmap
 
-- ✅ Nutricion -> Registro de comidas
+- ✅ Nutrición -> Registro de comidas
 - ✅ Medidas -> Registro de medidas corporales
 - ⌛ Ejercicio -> Enfocado en rutinas de gimnasio
 - ⌛ Descanso -> Registro del sueño
@@ -71,6 +71,10 @@ Para comenzar a usar Fityo es necesario crear una cuenta, ya sea por un email o 
 Mario Rubio - [![Github][Github]][Github-url] - mariorb2017@gmail.com
 
 Link del proyecto: [https://github.com/maariioxx/fityo](https://github.com/maariioxx/fityo)
+
+## ⚖️ Licencia
+
+Distribuido bajo la licencia MIT. Mira `LICENSE.txt` para más información.
 
 <p align="right">(<a href="#readme-top">Volver al inicio</a>)</p>
 
