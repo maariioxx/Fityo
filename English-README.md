@@ -72,6 +72,10 @@ Mario Rubio - [![Github][Github]][Github-url] - mariorb2017@gmail.com
 
 Project's link: [https://github.com/maariioxx/fityo](https://github.com/maariioxx/fityo)
 
+## ⚖️ License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
 <p align="right">(<a href="#readme-top">Back to top</a>)</p>
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
