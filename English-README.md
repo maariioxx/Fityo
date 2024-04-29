@@ -47,14 +47,14 @@
 
 This is my personal project made for having a diary where you can register your daily foods to achieve your physicial and nutritional objectives. This app was created with the intention of being a learning step and increase my experience working with Next's App Router and Typescript.
 
-### 🧰 Hecho con:
+### 🧰 Made with:
 
 - [![TypeScript][Typescript]][Typescript-url]
 - [![Next][Next.js]][Next-url]
 - [![React][React.js]][React-url]
 - [![Tailwind][Tailwind]][Tailwind-url]
 
-## 🚀 Utilización
+## 🚀 Usage
 
 To start using Fityo it's necessary to create an account whether using your email or logging through a Google account. When register is done, all different features will be available to be configured and used.
 
@@ -66,7 +66,7 @@ To start using Fityo it's necessary to create an account whether using your emai
 - ⌛ Rest -> Sleep's diary
 - ⌛ Other tools such as a BMR calculator or a routines creator
 
-## 📱 Contacto
+## 📱 Contact
 
 Mario Rubio - [![Github][Github]][Github-url] - mariorb2017@gmail.com
 
