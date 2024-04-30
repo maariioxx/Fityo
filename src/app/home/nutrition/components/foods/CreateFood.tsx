@@ -134,7 +134,7 @@ export default function CreateFood() {
         </form>
       </Modal>
       <div
-        className={`fixed top-[90vh] left-[45vw] w-48 pl-10 py-2 rounded-xl text-white bg-green-700 ${
+        className={`fixed top-[90vh] left-[26vw] md:left-[38vw] lg:left-[42vw] w-48 pl-10 py-2 rounded-xl text-white bg-green-700 ${
           showAlert ? 'scale-100 translate-y-0' : 'scale-0 -translate-y-8'
         } transition-transform z-50`}
       >

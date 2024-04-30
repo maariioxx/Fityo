@@ -320,7 +320,7 @@ export default function FoodsRow({
       </div>
       <hr className="h-0.5 bg-gray-300" />
       <div
-        className={`fixed top-[90vh] left-[45vw] w-48 pl-10 py-2 rounded-xl text-white bg-red-500 ${
+        className={`fixed top-[90vh] lg:left-[55vw] w-48 pl-10 py-2 rounded-xl text-white bg-red-500 ${
           showAlert ? 'scale-100 translate-y-0' : 'scale-0 -translate-y-8'
         } transition-transform z-50`}
       >
