@@ -2,7 +2,7 @@
 
 import { FoodNutrients } from '@/types/API/nutritionInstantEndpoint';
 import { ParsedFood } from '@/types/API/nutritionSearchEndpoint';
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import FoodsRow from '../../FoodsRow';
 
 export function calculateMacros(macro: number, quantity: number) {
@@ -18,32 +18,56 @@ export default function FityoFoods({
   detailedFood: FoodNutrients;
   date: string;
 }) {
-  const [quantity, setQuantity] = useState(100);
-  const [calories, setCalories] = useState(food.nutrients.ENERC_KCAL);
-  const [carbs, setCarbs] = useState(food.nutrients.CHOCDF);
+  useEffect(() => {
+    console.log(detailedFood);
+  }, []);
+  const [quantity, setQuantity] = useState('100');
+  const [calories, setCalories] = useState(
+    typeof food.nutrients.ENERC_KCAL === 'undefined'
+      ? 0
+      : food.nutrients.ENERC_KCAL
+  );
+  const [carbs, setCarbs] = useState(
+    typeof food.nutrients.CHOCDF === 'undefined' ? 0 : food.nutrients.CHOCDF
+  );
   const [sugar, setSugar] = useState(
-    detailedFood.totalNutrients.SUGAR.quantity
+    typeof detailedFood.totalNutrients.SUGAR === 'undefined'
+      ? 0
+      : detailedFood.totalNutrients.SUGAR.quantity
   );
-  const [fats, setFats] = useState(food.nutrients.FAT);
+  const [fats, setFats] = useState(
+    typeof food.nutrients.FAT === 'undefined' ? 0 : food.nutrients.FAT
+  );
   const [saturated_fats, setSaturatedFats] = useState(
-    detailedFood.totalNutrients.FASAT.quantity
+    typeof detailedFood.totalNutrients.FASAT === 'undefined'
+      ? 0
+      : detailedFood.totalNutrients.FASAT.quantity
   );
-  const [protein, setProtein] = useState(food.nutrients.PROCNT);
+  const [protein, setProtein] = useState(
+    typeof food.nutrients.PROCNT === 'undefined' ? 0 : food.nutrients.PROCNT
+  );
 
-  const handleQuantityChange = (quantityInput: number) => {
+  const handleQuantityChange = (quantityInput: string) => {
     let _quantity = quantityInput;
-    if (quantityInput >= 1000) _quantity = 1000;
+    if (isNaN(Number(quantityInput))) _quantity = '0';
+    else if (Number(quantityInput) >= 1000) _quantity = '1000';
     setQuantity(_quantity);
-    setCalories(calculateMacros(food.nutrients.ENERC_KCAL, _quantity));
-    setCarbs(calculateMacros(food.nutrients.CHOCDF, _quantity));
+    setCalories(calculateMacros(food.nutrients.ENERC_KCAL, Number(_quantity)));
+    setCarbs(calculateMacros(food.nutrients.CHOCDF, Number(_quantity)));
     setSugar(
-      calculateMacros(detailedFood.totalNutrients.SUGAR.quantity, _quantity)
+      calculateMacros(
+        detailedFood.totalNutrients.SUGAR.quantity,
+        Number(_quantity)
+      )
     );
-    setFats(calculateMacros(food.nutrients.FAT, _quantity));
+    setFats(calculateMacros(food.nutrients.FAT, Number(_quantity)));
     setSaturatedFats(
-      calculateMacros(detailedFood.totalNutrients.FASAT.quantity, _quantity)
+      calculateMacros(
+        detailedFood.totalNutrients.FASAT.quantity,
+        Number(_quantity)
+      )
     );
-    setProtein(calculateMacros(food.nutrients.PROCNT, _quantity));
+    setProtein(calculateMacros(food.nutrients.PROCNT, Number(_quantity)));
   };
 
   return (

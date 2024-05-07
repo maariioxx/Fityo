@@ -12,7 +12,7 @@ export type FetchedFood = {
   id: string;
   name: string;
   protein: number;
-  quantity: number;
+  quantity: string;
   saturated_fats: number;
   sugar: number;
   user_id: string;
@@ -20,7 +20,7 @@ export type FetchedFood = {
 
 type Nutrients = {
   foodId: string;
-  quantity: number;
+  quantity: string;
   calories: number;
   carbs: number;
   sugar: number;
@@ -31,7 +31,7 @@ type Nutrients = {
 
 type AddFood = {
   food: ParsedFood;
-  handleQuantityChange: (quantityInput: number) => void;
+  handleQuantityChange: (quantityInput: string) => void;
   date: string;
   userFood: undefined;
   isUserFood: false;
@@ -41,7 +41,7 @@ type AddFood = {
 
 type CustomFood = {
   food: CustomFoods;
-  handleQuantityChange: (quantityInput: number) => void;
+  handleQuantityChange: (quantityInput: string) => void;
   date: string;
   userFood: undefined;
   isUserFood: false;

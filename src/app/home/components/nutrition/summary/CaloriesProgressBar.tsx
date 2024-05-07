@@ -26,7 +26,7 @@ export default async function CaloriesProgressBar({ date }: { date: string }) {
     <RadialProgressBar
       color="#046C4E"
       totalCalories={userCalories!}
-      takenCalories={usedCalories}
+      takenCalories={Math.round(usedCalories)}
       className="col-start-1 col-end-2"
     />
   );

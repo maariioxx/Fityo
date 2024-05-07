@@ -35,6 +35,7 @@ export default async function FityoFoodsFetch({
       }
     );
     detailedFood = await _res.json();
+    console.log(detailedFood);
   }
 
   return (

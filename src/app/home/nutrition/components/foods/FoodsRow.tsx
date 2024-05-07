@@ -35,9 +35,6 @@ export default function FoodsRow({
   isUserFood,
   isCustomFood,
 }: FoodsRow) {
-  useEffect(() => {
-    console.log(foodId.split('food').length);
-  }, []);
   const [openModal, setOpenModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [modalQuantity, setModalQuantity] = useState(quantity);
@@ -48,7 +45,7 @@ export default function FoodsRow({
         name: food.name,
         date: date,
         food_id: Number(food.id),
-        quantity: quantity,
+        quantity: Number(quantity),
         calories: calories,
         carbs: carbs,
         sugar: sugar,
@@ -61,7 +58,7 @@ export default function FoodsRow({
         name: food!.knownAs,
         date: date,
         food_id: food!.foodId,
-        quantity: quantity,
+        quantity: Number(quantity),
         calories: calories,
         carbs: carbs,
         sugar: sugar,
@@ -79,13 +76,14 @@ export default function FoodsRow({
       data: {
         date: date,
         created_at: userFood?.created_at as string,
-        newQuantity: modalQuantity,
-        calories: (calories * modalQuantity) / quantity,
-        carbs: (carbs * modalQuantity) / quantity,
-        sugar: (sugar * modalQuantity) / quantity,
-        fats: (fats * modalQuantity) / quantity,
-        saturated_fats: (saturated_fats * modalQuantity) / quantity,
-        protein: (protein * modalQuantity) / quantity,
+        newQuantity: Number(modalQuantity),
+        calories: (calories * Number(modalQuantity)) / Number(quantity),
+        carbs: (carbs * Number(modalQuantity)) / Number(quantity),
+        sugar: (sugar * Number(modalQuantity)) / Number(quantity),
+        fats: (fats * Number(modalQuantity)) / Number(quantity),
+        saturated_fats:
+          (saturated_fats * Number(modalQuantity)) / Number(quantity),
+        protein: (protein * Number(modalQuantity)) / Number(quantity),
       },
     });
     console.log(res);
@@ -109,6 +107,10 @@ export default function FoodsRow({
       created_at: userFood?.created_at as string,
     });
   }
+
+  function handleModalQuantityChange(modalQuantity: string) {
+    handleQuantityChange!(modalQuantity);
+  }
   return (
     <div className="space-y-8">
       <div className="flex flex-col lg:flex-row items-center lg:w-full justify-between gap-7 lg:gap-24 mt-4">
@@ -118,8 +120,10 @@ export default function FoodsRow({
               {isUserFood ? (
                 <span className="text-2xl lg:text-2xl">
                   {userFood.name}
-                  {foodId.split('food').length !== 1 && (
+                  {foodId.split('food').length !== 1 ? (
                     <span className="text-sm"> | {userFood.quantity}g</span>
+                  ) : (
+                    <span className="text-sm"> | {userFood.quantity}</span>
                   )}
                 </span>
               ) : isCustomFood ? (
@@ -143,46 +147,24 @@ export default function FoodsRow({
             </ModalHeader>
             <ModalBody>
               <div className="flex items-end gap-4">
-                Calories:{' '}
-                <MacroInfo
-                  macro={(calories * modalQuantity) / quantity}
-                  color="text-green-700"
-                />
+                Calories: <MacroInfo macro={calories} color="text-green-700" />
               </div>
               <div className="flex items-end gap-4">
                 Carbohydrates:{' '}
-                <MacroInfo
-                  macro={(carbs * modalQuantity) / quantity}
-                  color="text-yellow-400"
-                />
+                <MacroInfo macro={carbs} color="text-yellow-400" />
               </div>
               <div className="flex items-end gap-4">
-                Sugar:{' '}
-                <MacroInfo
-                  macro={(sugar * modalQuantity) / quantity}
-                  color="text-fuchsia-400"
-                />
+                Sugar: <MacroInfo macro={sugar} color="text-fuchsia-400" />
               </div>
               <div className="flex items-end gap-4">
-                Fats:{' '}
-                <MacroInfo
-                  macro={(fats * modalQuantity) / quantity}
-                  color="text-purple-600"
-                />
+                Fats: <MacroInfo macro={fats} color="text-purple-600" />
               </div>
               <div className="flex items-end gap-4">
                 Saturated fats:{' '}
-                <MacroInfo
-                  macro={(saturated_fats * modalQuantity) / quantity}
-                  color="text-pink-950"
-                />
+                <MacroInfo macro={saturated_fats} color="text-pink-950" />
               </div>
               <div className="flex items-end gap-4">
-                Protein:{' '}
-                <MacroInfo
-                  macro={(protein * modalQuantity) / quantity}
-                  color="text-red-600"
-                />
+                Protein: <MacroInfo macro={protein} color="text-red-600" />
               </div>
             </ModalBody>
             <ModalFooter>
@@ -191,19 +173,21 @@ export default function FoodsRow({
                   Quantity:{' '}
                   {isUserFood ? (
                     <input
-                      type="number"
+                      type="text"
                       name="quantity"
                       className="form-input number-input w-32"
-                      onChange={(e) => setModalQuantity(Number(e.target.value))}
-                      defaultValue={quantity}
+                      onChange={(e) =>
+                        handleModalQuantityChange(e.target.value)
+                      }
+                      value={quantity}
                     />
                   ) : (
                     <input
-                      type="number"
+                      type="text"
                       value={quantity}
                       max={1000}
                       onChange={(e) =>
-                        handleQuantityChange(Number(e.target.value))
+                        handleModalQuantityChange(e.target.value)
                       }
                       className="form-input number-input w-32"
                     />
@@ -274,11 +258,12 @@ export default function FoodsRow({
             </div>
           ) : (
             <div className="flex flex-col-reverse lg:flex-col gap-2">
-              <div className="flex mr-3 gap-2">
+              <div className="flex justify-end gap-2">
                 <Button
                   color="success"
                   className="rounded-full ml-8"
                   size="xs"
+                  disabled={Number(quantity) === 0 && true}
                   onClick={handleAdd}
                 >
                   <MdAdd className="text-2xl" />
@@ -299,10 +284,8 @@ export default function FoodsRow({
                   Qty:{' '}
                   <input
                     key={isCustomFood ? food.id : food.foodId}
-                    type="number"
-                    onChange={(e) =>
-                      handleQuantityChange(Number(e.target.value))
-                    }
+                    type="text"
+                    onChange={(e) => handleQuantityChange(e.target.value)}
                     value={quantity}
                     max={1000}
                     className="form-input number-input max-w-24"

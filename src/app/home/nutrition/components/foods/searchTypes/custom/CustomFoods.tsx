@@ -19,7 +19,7 @@ export default function CustomFoods({
   food: CustomFoods;
   date: string;
 }) {
-  const [quantity, setQuantity] = useState(food.quantity);
+  const [quantity, setQuantity] = useState(food.quantity.toString());
   const [calories, setCalories] = useState(food.calories);
   const [carbs, setCarbs] = useState(food.carbohydrates);
   const [sugar, setSugar] = useState(food.sugar);
@@ -27,18 +27,23 @@ export default function CustomFoods({
   const [saturated_fats, setSaturatedFats] = useState(food.saturated_fats);
   const [protein, setProtein] = useState(food.protein);
 
-  const handleQuantityChange = (quantityInput: number) => {
+  const handleQuantityChange = (quantityInput: string) => {
     let _quantity = quantityInput;
-    if (quantityInput >= 1000) _quantity = 1000;
+    if (isNaN(Number(quantityInput))) _quantity = '0';
+    else if (Number(quantityInput) >= 1000) _quantity = '1000';
     setQuantity(_quantity);
-    setCalories(calculateMacros(food.calories, food.quantity, _quantity));
-    setCarbs(calculateMacros(food.carbohydrates, food.quantity, _quantity));
-    setSugar(calculateMacros(food.sugar, food.quantity, _quantity));
-    setFats(calculateMacros(food.fats, food.quantity, _quantity));
-    setSaturatedFats(
-      calculateMacros(food.saturated_fats, food.quantity, _quantity)
+    setCalories(
+      calculateMacros(food.calories, food.quantity, Number(_quantity))
     );
-    setProtein(calculateMacros(food.protein, food.quantity, _quantity));
+    setCarbs(
+      calculateMacros(food.carbohydrates, food.quantity, Number(_quantity))
+    );
+    setSugar(calculateMacros(food.sugar, food.quantity, Number(_quantity)));
+    setFats(calculateMacros(food.fats, food.quantity, Number(_quantity)));
+    setSaturatedFats(
+      calculateMacros(food.saturated_fats, food.quantity, Number(_quantity))
+    );
+    setProtein(calculateMacros(food.protein, food.quantity, Number(_quantity)));
   };
 
   return (
