@@ -15,7 +15,7 @@ import {
   ModalHeader,
   Tooltip,
 } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { MdAdd, MdEdit, MdDelete } from 'react-icons/md';
 import MacroInfo from './MacroInfo';
 
@@ -45,7 +45,7 @@ export default function FoodsRow({
         name: food.name,
         date: date,
         food_id: Number(food.id),
-        quantity: Number(quantity),
+        quantity: quantity,
         calories: calories,
         carbs: carbs,
         sugar: sugar,
@@ -58,7 +58,7 @@ export default function FoodsRow({
         name: food!.knownAs,
         date: date,
         food_id: food!.foodId,
-        quantity: Number(quantity),
+        quantity: quantity,
         calories: calories,
         carbs: carbs,
         sugar: sugar,
@@ -76,14 +76,13 @@ export default function FoodsRow({
       data: {
         date: date,
         created_at: userFood?.created_at as string,
-        newQuantity: Number(modalQuantity),
-        calories: (calories * Number(modalQuantity)) / Number(quantity),
-        carbs: (carbs * Number(modalQuantity)) / Number(quantity),
-        sugar: (sugar * Number(modalQuantity)) / Number(quantity),
-        fats: (fats * Number(modalQuantity)) / Number(quantity),
-        saturated_fats:
-          (saturated_fats * Number(modalQuantity)) / Number(quantity),
-        protein: (protein * Number(modalQuantity)) / Number(quantity),
+        newQuantity: modalQuantity,
+        calories: (calories * modalQuantity) / quantity,
+        carbs: (carbs * modalQuantity) / quantity,
+        sugar: (sugar * modalQuantity) / quantity,
+        fats: (fats * modalQuantity) / quantity,
+        saturated_fats: (saturated_fats * modalQuantity) / quantity,
+        protein: (protein * modalQuantity) / quantity,
       },
     });
     console.log(res);
@@ -106,10 +105,6 @@ export default function FoodsRow({
       date: userFood?.date as string,
       created_at: userFood?.created_at as string,
     });
-  }
-
-  function handleModalQuantityChange(modalQuantity: string) {
-    handleQuantityChange!(modalQuantity);
   }
   return (
     <div className="space-y-8">
@@ -147,24 +142,46 @@ export default function FoodsRow({
             </ModalHeader>
             <ModalBody>
               <div className="flex items-end gap-4">
-                Calories: <MacroInfo macro={calories} color="text-green-700" />
+                Calories:{' '}
+                <MacroInfo
+                  macro={(calories * modalQuantity) / quantity}
+                  color="text-green-700"
+                />
               </div>
               <div className="flex items-end gap-4">
                 Carbohydrates:{' '}
-                <MacroInfo macro={carbs} color="text-yellow-400" />
+                <MacroInfo
+                  macro={(carbs * modalQuantity) / quantity}
+                  color="text-yellow-400"
+                />
               </div>
               <div className="flex items-end gap-4">
-                Sugar: <MacroInfo macro={sugar} color="text-fuchsia-400" />
+                Sugar:{' '}
+                <MacroInfo
+                  macro={(sugar * modalQuantity) / quantity}
+                  color="text-fuchsia-400"
+                />
               </div>
               <div className="flex items-end gap-4">
-                Fats: <MacroInfo macro={fats} color="text-purple-600" />
+                Fats:{' '}
+                <MacroInfo
+                  macro={(fats * modalQuantity) / quantity}
+                  color="text-purple-600"
+                />
               </div>
               <div className="flex items-end gap-4">
                 Saturated fats:{' '}
-                <MacroInfo macro={saturated_fats} color="text-pink-950" />
+                <MacroInfo
+                  macro={(saturated_fats * modalQuantity) / quantity}
+                  color="text-pink-950"
+                />
               </div>
               <div className="flex items-end gap-4">
-                Protein: <MacroInfo macro={protein} color="text-red-600" />
+                Protein:{' '}
+                <MacroInfo
+                  macro={(protein * modalQuantity) / quantity}
+                  color="text-red-600"
+                />
               </div>
             </ModalBody>
             <ModalFooter>
@@ -173,32 +190,36 @@ export default function FoodsRow({
                   Quantity:{' '}
                   {isUserFood ? (
                     <input
-                      type="text"
+                      type="number"
                       name="quantity"
                       className="form-input number-input w-32"
-                      onChange={(e) =>
-                        handleModalQuantityChange(e.target.value)
-                      }
-                      value={quantity}
+                      onChange={(e) => setModalQuantity(Number(e.target.value))}
+                      value={modalQuantity}
                     />
                   ) : (
                     <input
-                      type="text"
-                      value={quantity}
+                      type="number"
+                      value={modalQuantity}
                       max={1000}
-                      onChange={(e) =>
-                        handleModalQuantityChange(e.target.value)
-                      }
+                      onChange={(e) => setModalQuantity(Number(e.target.value))}
                       className="form-input number-input w-32"
                     />
                   )}
                 </label>
                 {isUserFood ? (
-                  <Button onClick={handleUpdate} color="success">
+                  <Button
+                    onClick={handleUpdate}
+                    color="success"
+                    disabled={modalQuantity <= 0}
+                  >
                     Update
                   </Button>
                 ) : (
-                  <Button onClick={handleAdd} color="success">
+                  <Button
+                    onClick={handleAdd}
+                    color="success"
+                    disabled={modalQuantity <= 0}
+                  >
                     Add
                   </Button>
                 )}
@@ -285,7 +306,9 @@ export default function FoodsRow({
                   <input
                     key={isCustomFood ? food.id : food.foodId}
                     type="text"
-                    onChange={(e) => handleQuantityChange(e.target.value)}
+                    onChange={(e) =>
+                      handleQuantityChange(Number(e.target.value))
+                    }
                     value={quantity}
                     max={1000}
                     className="form-input number-input max-w-24"

@@ -21,7 +21,7 @@ export default function FityoFoods({
   useEffect(() => {
     console.log(detailedFood);
   }, []);
-  const [quantity, setQuantity] = useState('100');
+  const [quantity, setQuantity] = useState(100);
   const [calories, setCalories] = useState(
     typeof food.nutrients.ENERC_KCAL === 'undefined'
       ? 0
@@ -47,10 +47,9 @@ export default function FityoFoods({
     typeof food.nutrients.PROCNT === 'undefined' ? 0 : food.nutrients.PROCNT
   );
 
-  const handleQuantityChange = (quantityInput: string) => {
+  const handleQuantityChange = (quantityInput: number) => {
     let _quantity = quantityInput;
-    if (isNaN(Number(quantityInput))) _quantity = '0';
-    else if (Number(quantityInput) >= 1000) _quantity = '1000';
+    if (quantityInput >= 1000) _quantity = 1000;
     setQuantity(_quantity);
     setCalories(calculateMacros(food.nutrients.ENERC_KCAL, Number(_quantity)));
     setCarbs(calculateMacros(food.nutrients.CHOCDF, Number(_quantity)));
