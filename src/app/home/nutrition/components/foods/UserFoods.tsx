@@ -20,7 +20,7 @@ export default async function UserFoods({ date }: { date: string }) {
               userFood={food}
               foodId={food.food_id}
               date={date}
-              quantity={food.quantity.toString()}
+              quantity={food.quantity}
               calories={food.calories}
               carbs={food.carbs}
               sugar={food.sugar}
