@@ -16,10 +16,11 @@ export default async function UserFoods({ date }: { date: string }) {
         return (
           <div key={crypto.randomUUID()}>
             <FoodsRow
+              // @ts-ignore
               userFood={food}
               foodId={food.food_id}
               date={date}
-              quantity={food.quantity}
+              quantity={food.quantity.toString()}
               calories={food.calories}
               carbs={food.carbs}
               sugar={food.sugar}
