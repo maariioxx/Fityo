@@ -146,6 +146,8 @@ export default function FoodsRow({
                 <MacroInfo
                   macro={(calories * modalQuantity) / quantity}
                   color="text-green-700"
+                  unit="kcal"
+                  decimals={false}
                 />
               </div>
               <div className="flex items-end gap-4">
@@ -232,7 +234,12 @@ export default function FoodsRow({
               placement="bottom"
               className="w-40 text-center"
             >
-              <MacroInfo macro={calories} color="text-green-700" />
+              <MacroInfo
+                macro={calories}
+                color="text-green-700"
+                unit="kcal"
+                decimals={false}
+              />
             </Tooltip>
             <Tooltip
               content="Carbohydrates per 100g"
