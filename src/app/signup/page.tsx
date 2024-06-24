@@ -1,7 +1,7 @@
 'use client';
 
 import { MdEmail } from 'react-icons/md';
-import { FaGoogle, FaGithub } from 'react-icons/fa';
+import { FaGoogle } from 'react-icons/fa';
 import { Button } from 'flowbite-react';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
